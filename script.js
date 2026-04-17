@@ -19,9 +19,15 @@ import { tiles as layoutTiles } from './grid-layout.js';
 
 const MODALS = {
   portrait: {
-    type: 'image',
-    src: 'assets/images/bio-pic.jpg',
-    alt: 'Eskor David Johnson',
+    type: 'bio',
+    img: 'assets/images/bio-pic.jpg',
+    eyebrow: 'About',
+    title: 'Eskor David Johnson',
+    body: [
+      'Eskor David Johnson is a writer from Trinidad and Tobago and the United States. His debut novel <em>Pay As You Go</em> (McSweeney\'s, 2023) was named an NPR 2023 Book of the Year, was a finalist for the Center for Fiction First Novel Prize as well as the New York Public Library Young Lions Fiction Award, and longlisted for the Mark Twain American Voice in Literature Award.',
+      'His writing has appeared in <em>BOMB Magazine</em>, <em>McSweeney\'s Quarterly Concern</em>, <em>The Los Angeles Review of Books</em>, <em>The Believer</em>, and <em>Guernica Magazine</em>.',
+      'A professor of Fiction Writing at Stony Brook University, he lives in New York City.',
+    ],
   },
 
   book: {
@@ -67,10 +73,18 @@ const MODALS = {
   },
 
   stonybrook: {
-    eyebrow: 'Faculty',
+    type: 'institution',
+    logo: 'assets/images/stony-brook-logo.png',
+    eyebrow: 'Teaching',
     title: 'Stony Brook University',
-    body: 'Eskor David Johnson is a member of the creative writing faculty at Stony Brook University\'s MFA Program — one of the country\'s leading programs for emerging fiction writers.',
-    link: { href: '#', label: 'Explore the MFA Program →' },
+    body: [
+      'I\'m an Assistant Professor of Creative Writing in Stony Brook\'s Creative Writing and Literature department. My courses tend to cover a range of genres, modes, and scope, with a primary focus on scene construction in fiction.',
+    ],
+    courses: [
+      { title: 'Introduction to Creative Writing',         pdf: 'assets/content/CW 202 Syllabus - EDJ.pdf' },
+      { title: 'Introduction to Contemporary Literature',  pdf: 'assets/content/CWL 190.S01 E.Johnson.pdf' },
+      { title: 'Topics in Fiction: Anatomy of a Scene',    pdf: 'assets/content/CWL 305.S07 E.Johnson.pdf' },
+    ],
   },
 
   app: {
@@ -161,6 +175,53 @@ function buildHTML(data) {
   if (type === 'image') {
     panel.dataset.theme = 'dark';
     return `<img class="modal-img" src="${data.src}" alt="${data.alt}" />`;
+  }
+
+  if (type === 'institution') {
+    panel.dataset.theme = 'light';
+    panel.dataset.size  = 'large';
+    const bodyHTML   = data.body.map(p => `<p class="modal-body-para">${p}</p>`).join('');
+    const coursesHTML = data.courses.map(c => `
+      <a class="modal-course-link" href="${c.pdf}" target="_blank" rel="noopener">
+        <span class="modal-course-title">${c.title}</span>
+        <span class="modal-course-arrow">↗</span>
+      </a>`).join('');
+    return `
+      <div class="modal-book">
+        <div class="modal-book-cover" style="display:flex;align-items:center;justify-content:center;background:#F8F6F2;">
+          <img src="${data.logo}" alt="${data.title}" style="width:80%;object-fit:contain;display:block;" />
+        </div>
+        <div class="modal-book-text">
+          <div class="modal-inner">
+            <div class="modal-eyebrow">${data.eyebrow}</div>
+            <h2 class="modal-title">${data.title}</h2>
+            <div class="modal-body">${bodyHTML}</div>
+            <div class="modal-courses">
+              <div class="modal-courses-label">Courses</div>
+              ${coursesHTML}
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  if (type === 'bio') {
+    panel.dataset.theme = 'light';
+    panel.dataset.size  = 'large';
+    const bodyHTML = data.body.map(p => `<p class="modal-body-para">${p}</p>`).join('');
+    return `
+      <div class="modal-book">
+        <div class="modal-book-cover">
+          <img class="modal-book-img" src="${data.img}" alt="${data.title}" style="aspect-ratio:3/4;object-position:center top;" />
+        </div>
+        <div class="modal-book-text">
+          <div class="modal-inner">
+            <div class="modal-eyebrow">${data.eyebrow}</div>
+            <h2 class="modal-title">${data.title}</h2>
+            <div class="modal-body">${bodyHTML}</div>
+          </div>
+        </div>
+      </div>`;
   }
 
   if (type === 'book') {

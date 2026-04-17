@@ -44,10 +44,14 @@
   <div class="mosaic-wrap">
   <div class="mosaic">
 
-    <!-- Portrait: 2col × 5row -->
+    <!-- Portrait -->
     <div class="tile t-portrait" data-modal="portrait">
       <img class="portrait-img" src="assets/images/bio-pic.jpg" alt="Eskor David Johnson" />
       <div class="portrait-grad"></div>
+      <div class="ti">
+        <div class="ey ey-l">About Me</div>
+        <div class="th th-l" style="font-size: 42px;">Bio</div>
+      </div>
     </div>
 
     <!-- Book: 2col × 3row -->
@@ -90,12 +94,14 @@
       </div>
     </div>
 
-    <!-- Essays: 1col × 2row -->
-    <div class="tile t-essays c-stone" data-modal="essays">
+    <!-- Essays -->
+    <div class="tile t-essays" data-modal="essays">
+      <img class="essays-img" src="assets/images/sisyphus-in-the-capital.jpg" alt="" />
+      <div class="essays-grad"></div>
       <div class="ti">
         <div class="ey ey-l">Criticism</div>
-        <div class="th th-l" style="font-size: 32px;">Essays<br>&amp;<br>Reviews</div>
-        <a class="tl tl-l" href="#" style="font-size: 9px;">I write criticism →</a>
+        <div class="th th-l" style="font-size: 28px;">Stories, Essays<br>&amp; Reviews</div>
+        <a class="tl tl-l" href="#">I write some more →</a>
       </div>
     </div>
 
@@ -108,9 +114,9 @@
       </div>
     </div>
 
-    <!-- Photo 1 -->
-    <div class="tile t-photo1 c-photo" data-modal="photo1">
-      <img src="assets/images/basketball-court.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;" />
+    <!-- Photo 1 — gallery print -->
+    <div class="tile t-photo1">
+      <img class="gallery-print" src="assets/images/bird-doodle.jpg" alt="" />
     </div>
 
     <!-- Quote 2: Kirkus — ambient, 1 row -->
@@ -121,36 +127,28 @@
       </div>
     </div>
 
-    <!-- Mailing list: 2col × 2row -->
+    <!-- Contact -->
     <div class="tile t-mailing c-stone" data-modal="mailing">
       <div class="ti">
-        <div class="ey ey-l">Stay close</div>
-        <div class="th th-l" style="font-size: 28px; margin-bottom: 12px;">Follow the thinking.</div>
-        <div class="email-row">
-          <input class="email-inp" type="email" placeholder="your@email.com" />
-          <button class="email-btn">Join</button>
+        <div class="th th-l" style="font-size: 22px; margin-bottom: 16px;">If you write me an email, I will write you back.</div>
+        <div class="contact-row">
+          <textarea class="contact-msg" placeholder="Your message…" rows="3"></textarea>
+          <button class="contact-send">Send</button>
         </div>
       </div>
     </div>
 
-    <!-- Social: 2col × 2row -->
-    <div class="tile t-social c-ink" data-modal="social">
-      <div class="ti mid">
-        <div class="ey ey-l" style="margin-bottom: 16px;">Find me</div>
-        <div class="social-links">
-          <a href="#" class="social-link">Instagram</a>
-          <a href="#" class="social-link">Substack</a>
-          <a href="#" class="social-link">Twitter / X</a>
-        </div>
+    <!-- Social -->
+    <div class="tile t-social" data-modal="social" style="background:#FFFFFF;">
+      <div class="social-inner">
+        <img class="social-logos-img" src="assets/images/social-media-logos.png" alt="Instagram and TikTok" />
+        <a class="tl tl-d" href="#">I post online →</a>
       </div>
     </div>
 
-    <!-- Photo 2: 3col × 3row -->
-    <div class="tile t-photo2 c-photo-alt" data-modal="photo2">
-      <!-- Replace with: <img src="assets/images/photo-2.jpg" alt="" style="width:100%;height:100%;object-fit:cover;"> -->
-      <div class="ph-wrap">
-        <span class="ph-label">Photography / video</span>
-      </div>
+    <!-- Photo 2 — gallery print (placeholder until image added) -->
+    <div class="tile t-photo2">
+      <!-- <img class="gallery-print" src="assets/images/photo-2.jpg" alt="" /> -->
     </div>
 
     <!-- Accolades: 3col × 3row -->

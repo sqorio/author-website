@@ -315,7 +315,8 @@
     </div>
 
     <div class="sb-actions">
-      <button class="sb-btn sb-btn-save"  onclick="openSaveModal()">Save Layout</button>
+      <button class="sb-btn sb-btn-save"  onclick="saveLayout()">Save Layout</button>
+      <button class="sb-btn sb-btn-ghost" onclick="openSaveModal()">Preview JS</button>
       <button class="sb-btn sb-btn-ghost" onclick="resetLayout()">Reset</button>
     </div>
 
@@ -812,7 +813,28 @@ ${rows}
 ];`;
 }
 
-// ── Save modal ────────────────────────────────────────────
+// ── Save directly to grid-layout.js via Vite dev server ──
+async function saveLayout() {
+  const content = generateLayoutFile();
+  try {
+    const res = await fetch('/api/save-layout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content }),
+    });
+    if (res.ok) {
+      showToast('Saved — landing page updated');
+    } else {
+      const err = await res.json();
+      showToast('Error: ' + (err.error || res.status));
+    }
+  } catch (e) {
+    showToast('Could not reach dev server');
+  }
+}
+window.saveLayout = saveLayout;
+
+// ── Preview modal (fallback / inspect the JS) ─────────────
 function openSaveModal() {
   document.getElementById('saveOutput').textContent = generateLayoutFile();
   document.getElementById('saveModal').classList.add('open');

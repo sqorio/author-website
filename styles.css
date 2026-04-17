@@ -11,7 +11,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #F4F0E8;
+  background: #FFFFFF;
   color: #1A1814;
 }
 
@@ -146,7 +146,7 @@ a {
    INTRO BAND
    ============================================= */
 .intro {
-  background: #1C1914;
+  background: #FFFFFF;
   padding: 96px 10%;
 }
 
@@ -175,14 +175,14 @@ a {
   font-family: 'Playfair Display', serif;
   font-size: 26px;
   line-height: 1.58;
-  color: #F4F0E8;
+  color: #1A1814;
 }
 
 /* =============================================
    MOSAIC WRAP — dark frame continuing from intro
    ============================================= */
 .mosaic-wrap {
-  background: #1C1914;
+  background: #FFFFFF;
   padding: 0 20px 20px;
 }
 
@@ -195,7 +195,7 @@ a {
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 220px;
   gap: 10px;
-  background: #1C1914;
+  background: #FFFFFF;
   padding: 10px;
 }
 
@@ -228,14 +228,59 @@ a {
   filter: brightness(0.85);
 }
 
+/* --- Gallery photo tiles: static prints on a white wall --- */
+.t-photo1,
+.t-photo2 {
+  cursor: default;
+  background: #FFFFFF;
+  transition: none;
+  filter: none !important;
+}
+.t-photo1 > *,
+.t-photo2 > * {
+  transition: none !important;
+  transform: none !important;
+}
+.t-photo1:active,
+.t-photo2:active {
+  filter: none !important;
+}
+
+.gallery-print {
+  position: absolute;
+  inset: 25%;
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
 /* --- Quote tiles: ambient, no interaction --- */
-/* Blend into the dark field — cursor static, no hover, no scale */
+/* Blend into the background — cursor static, no hover, no scale */
 .t-quote1,
 .t-bio,
 .t-quote2 {
   cursor: default;
   transition: none;
   filter: none !important;
+  background: #FFFFFF !important;
+}
+
+/* Quote text recolored for light background */
+.t-quote1 .gold,
+.t-bio .gold,
+.t-quote2 .gold {
+  color: #1A1814 !important;
+}
+.t-quote1 .qmark,
+.t-bio .qmark {
+  color: #C8601A !important;
+}
+.t-quote1 .qattr,
+.t-bio .qattr,
+.t-quote2 .qattr {
+  color: rgba(26, 24, 20, 0.42) !important;
 }
 .t-quote1 > *,
 .t-bio > *,
@@ -335,7 +380,8 @@ a {
   transition: opacity 0.2s;
 }
 .tl:hover { opacity: 0.7; }
-.tl-r { color: #C8601A; }
+.tl { align-self: center; }
+.tl-r { color: #C8601A; border-bottom: 0.5px solid rgba(200, 96, 26, 0.4); }
 .tl-l { color: rgba(244, 240, 232, 0.85); border-bottom: 0.5px solid rgba(244, 240, 232, 0.35); }
 .tl-d { color: #1A1814; border-bottom: 0.5px solid rgba(26, 24, 20, 0.25); }
 
@@ -410,6 +456,26 @@ a {
   bottom: 0; left: 0; right: 0;
   height: 50%;
   background: linear-gradient(to top, rgba(240, 234, 216, 0.96) 0%, rgba(240, 234, 216, 0) 100%);
+}
+
+/* =============================================
+   ESSAYS TILE
+   ============================================= */
+.essays-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left bottom;
+  display: block;
+}
+
+.essays-grad {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(20, 16, 12, 0.88) 0%, transparent 100%);
 }
 
 /* =============================================
@@ -488,56 +554,84 @@ a {
 }
 
 /* =============================================
-   MAILING LIST TILE
+   CONTACT TILE
    ============================================= */
-.email-row {
+.contact-row {
   display: flex;
   width: 100%;
-  margin-top: 12px;
+  gap: 0;
+  align-items: flex-end;
 }
 
-.email-inp {
+.contact-msg {
   flex: 1;
-  background: rgba(244, 240, 232, 0.1);
+  background: rgba(244, 240, 232, 0.08);
   border: 0.5px solid rgba(244, 240, 232, 0.2);
+  border-right: none;
   color: #F4F0E8;
-  font-size: 11px;
+  font-size: 12px;
   font-family: 'Inter', sans-serif;
-  padding: 9px 11px;
+  font-weight: 300;
+  padding: 11px 14px;
   outline: none;
+  resize: none;
+  line-height: 1.5;
   min-width: 0;
 }
 
-.email-inp::placeholder {
-  color: rgba(244, 240, 232, 0.35);
+.contact-msg::placeholder {
+  color: rgba(244, 240, 232, 0.3);
 }
 
-.email-inp:focus {
-  border-color: rgba(244, 240, 232, 0.5);
+.contact-msg:focus {
+  border-color: rgba(244, 240, 232, 0.45);
+  background: rgba(244, 240, 232, 0.12);
 }
 
-.email-btn {
+.contact-send {
   background: #C8601A;
   border: none;
   color: #F4F0E8;
   font-size: 9px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 9px 13px;
+  padding: 0 18px;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
-  white-space: nowrap;
   font-weight: 500;
+  white-space: nowrap;
+  align-self: stretch;
   transition: background 0.2s;
 }
 
-.email-btn:hover {
+.contact-send:hover {
   background: #a34e15;
 }
 
 /* =============================================
    SOCIAL TILE
    ============================================= */
+
+/* Single wrapper = hover scale applies to everything as one unit */
+.social-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 24px 24px;
+  gap: 14px;
+}
+
+.social-logos-img {
+  width: 78%;
+  object-fit: contain;
+  display: block;
+  flex: 1;
+  min-height: 0;
+}
+
 .social-links {
   display: flex;
   flex-direction: column;
@@ -593,7 +687,7 @@ a {
   justify-content: space-between;
   align-items: center;
   border-top: 0.5px solid rgba(26, 24, 20, 0.1);
-  background: #F4F0E8;
+  background: #FFFFFF;
 }
 
 .footer-name {
@@ -907,6 +1001,46 @@ a {
   margin-top: 28px;
   padding-top: 24px;
   border-top: 0.5px solid rgba(26, 24, 20, 0.1);
+}
+
+.modal-courses {
+  margin-top: 28px;
+  border-top: 0.5px solid rgba(26, 24, 20, 0.1);
+  padding-top: 20px;
+}
+
+.modal-courses-label {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(26, 24, 20, 0.38);
+  margin-bottom: 14px;
+}
+
+.modal-course-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 0.5px solid rgba(26, 24, 20, 0.08);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.modal-course-link:last-child { border-bottom: none; }
+.modal-course-link:hover { opacity: 0.6; }
+
+.modal-course-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  color: #1A1814;
+  line-height: 1.3;
+}
+
+.modal-course-arrow {
+  font-size: 14px;
+  color: #C8601A;
+  flex-shrink: 0;
+  margin-left: 12px;
 }
 
 .modal-praise-heading {
