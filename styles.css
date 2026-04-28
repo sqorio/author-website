@@ -256,6 +256,12 @@ a {
   display: block;
 }
 
+.t-photo2 .gallery-print {
+  inset: 4%;
+  width: 92%;
+  height: 92%;
+}
+
 /* --- Quote tiles: ambient, no interaction --- */
 /* Blend into the background — cursor static, no hover, no scale */
 .t-quote1,
@@ -479,6 +485,26 @@ a {
 }
 
 /* =============================================
+   INTERVIEWS TILE
+   ============================================= */
+.interviews-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.interviews-grad {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(20, 16, 12, 0.9) 0%, transparent 100%);
+}
+
+/* =============================================
    QUILL APP TILE
    ============================================= */
 .quill-img {
@@ -501,15 +527,19 @@ a {
 /* =============================================
    BOOK TILE
    ============================================= */
+.t-book .ti.center {
+  padding: 20px;
+}
+
 .book-wrap {
-  width: 58%;
-  aspect-ratio: 2 / 3;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 62%;
   background: #1B4B7A;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  padding: 12px;
+  justify-content: center;
   border: 0.5px solid rgba(255, 255, 255, 0.08);
   position: relative;
   overflow: hidden;
@@ -517,12 +547,11 @@ a {
 }
 
 .book-cover-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
 }
 
 .book-shimmer {
@@ -554,58 +583,121 @@ a {
 }
 
 /* =============================================
-   CONTACT TILE
+   CONTACT TILE — POSTCARD
    ============================================= */
-.contact-row {
-  display: flex;
-  width: 100%;
-  gap: 0;
-  align-items: flex-end;
+.t-mailing {
+  background: #FFFFFF;
+  cursor: default;
+  transition: none;
+  filter: none !important;
+  transform: none !important;
 }
 
-.contact-msg {
-  flex: 1;
-  background: rgba(244, 240, 232, 0.08);
-  border: 0.5px solid rgba(244, 240, 232, 0.2);
-  border-right: none;
-  color: #F4F0E8;
-  font-size: 12px;
+.postcard-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+}
+
+.postcard-card {
+  background: #FAF7F2;
+  border: 0.5px solid rgba(26, 24, 20, 0.15);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  padding: 28px 32px 24px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.postcard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.postcard-label {
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(26, 24, 20, 0.3);
+  font-weight: 500;
+}
+
+.postcard-stamp {
+  width: 28px;
+  height: 36px;
+  border: 0.5px dashed rgba(26, 24, 20, 0.2);
+  flex-shrink: 0;
+}
+
+.postcard-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: #1A1814;
+  line-height: 1.55;
+}
+
+.postcard-msg {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid rgba(26, 24, 20, 0.18);
+  color: #1A1814;
+  font-size: 13px;
   font-family: 'Inter', sans-serif;
   font-weight: 300;
-  padding: 11px 14px;
+  padding: 6px 0 8px;
   outline: none;
   resize: none;
-  line-height: 1.5;
-  min-width: 0;
+  line-height: 1.7;
 }
 
-.contact-msg::placeholder {
-  color: rgba(244, 240, 232, 0.3);
+.postcard-msg::placeholder {
+  color: rgba(26, 24, 20, 0.28);
+  font-style: italic;
 }
 
-.contact-msg:focus {
-  border-color: rgba(244, 240, 232, 0.45);
-  background: rgba(244, 240, 232, 0.12);
+.postcard-msg:focus {
+  border-bottom-color: rgba(26, 24, 20, 0.45);
 }
 
-.contact-send {
-  background: #C8601A;
-  border: none;
-  color: #F4F0E8;
-  font-size: 9px;
-  letter-spacing: 0.12em;
+.postcard-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.postcard-to {
+  font-size: 8px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0 18px;
+  color: rgba(26, 24, 20, 0.3);
+  white-space: nowrap;
+}
+
+.postcard-send {
+  background: none;
+  border: 0.5px solid rgba(26, 24, 20, 0.25);
+  color: #1A1814;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 8px 16px;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  white-space: nowrap;
-  align-self: stretch;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
-.contact-send:hover {
-  background: #a34e15;
+.postcard-send:hover {
+  background: #1A1814;
+  color: #F4F0E8;
 }
 
 /* =============================================
@@ -1041,6 +1133,151 @@ a {
   color: #C8601A;
   flex-shrink: 0;
   margin-left: 12px;
+}
+
+/* =============================================
+   SOCIAL MODAL
+   ============================================= */
+.modal-social-links-list {
+  margin-top: 28px;
+  border-top: 0.5px solid rgba(26, 24, 20, 0.1);
+}
+
+.modal-social-row {
+  display: flex;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 0.5px solid rgba(26, 24, 20, 0.08);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.modal-social-row:hover { opacity: 0.6; }
+
+.modal-social-platform {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #1A1814;
+  flex: 1;
+}
+
+.modal-social-handle {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(26, 24, 20, 0.38);
+  margin-right: 14px;
+}
+
+.modal-social-arrow {
+  font-size: 16px;
+  color: #C8601A;
+}
+
+/* =============================================
+   WRITING MODAL (essays)
+   ============================================= */
+.modal-writing-left {
+  flex: 0 0 260px;
+  display: flex;
+  flex-direction: column;
+  background: #1C1914;
+  overflow: hidden;
+}
+
+.modal-writing-img {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.modal-writing-intro {
+  padding: 24px 22px;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.65;
+  color: rgba(244, 240, 232, 0.75);
+  flex-shrink: 0;
+}
+
+@media (max-width: 680px) {
+  .modal-writing-left {
+    flex: none;
+    height: 200px;
+  }
+  .modal-writing-img {
+    flex: 1;
+  }
+  .modal-writing-intro {
+    display: none;
+  }
+}
+.modal-writing-sections {
+  margin-top: 28px;
+}
+
+.modal-writing-section {
+  margin-bottom: 32px;
+}
+
+.modal-writing-label {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(26, 24, 20, 0.38);
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 0.5px solid rgba(26, 24, 20, 0.1);
+}
+
+.modal-writing-item {
+  padding: 16px 0;
+  border-bottom: 0.5px solid rgba(26, 24, 20, 0.07);
+}
+.modal-writing-item:last-child {
+  border-bottom: none;
+}
+
+.modal-writing-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: #1A1814;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.modal-writing-pub {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(26, 24, 20, 0.42);
+  margin-bottom: 10px;
+}
+
+.modal-writing-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.modal-writing-link {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #C8601A;
+  text-decoration: none;
+  border-bottom: 0.5px solid rgba(200, 96, 26, 0.35);
+  padding-bottom: 1px;
+  transition: opacity 0.2s;
+}
+.modal-writing-link:hover { opacity: 0.65; }
+
+.modal-writing-link-sep {
+  color: rgba(26, 24, 20, 0.25);
+  font-size: 11px;
 }
 
 .modal-praise-heading {

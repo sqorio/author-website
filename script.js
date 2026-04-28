@@ -95,10 +95,52 @@ const MODALS = {
   },
 
   essays: {
-    eyebrow: 'Criticism',
-    title: 'Essays & Reviews',
-    body: 'Literary criticism, cultural commentary, and reviews at the intersection of fiction, culture, and contemporary life.',
-    link: { href: '#', label: 'Read →' },
+    type: 'writing',
+    img: 'assets/images/sisyphus-in-the-capital.jpg',
+    eyebrow: 'Stories, Essays & Reviews',
+    title: 'Selected Writing',
+    intro: 'Although writing novels is more satisfying, they do take long to write. In my moments in between, I try my hand at shorter pieces.',
+    sections: [
+      {
+        label: 'Stories',
+        items: [
+          {
+            title: '"My Mountain is Taller Than All The Living Trees"',
+            publication: "McSweeney's Issue 52",
+            links: [
+              { label: 'Read excerpt', href: 'https://www.mcsweeneys.net/articles/from-mcsweeneys-issue-52-my-mountain-is-taller-than-all-the-living-trees' },
+              { label: 'Purchase issue', href: 'https://store.mcsweeneys.net/products/mcsweeney-s-issue-52?taxon_id=3' },
+            ],
+          },
+          {
+            title: '"Taximen"',
+            publication: 'Guernica',
+            links: [
+              { label: 'Read story', href: 'https://www.guernicamag.com/taximen/' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Essays',
+        items: [
+          {
+            title: '"Sisyphus in the Capital"',
+            publication: 'Believer Magazine',
+            links: [
+              { label: 'Read essay', href: 'https://www.thebeliever.net/sisyphus-in-the-capital/' },
+            ],
+          },
+          {
+            title: '"Black Artists and the Logic of the Market: On Cord Jefferson\'s American Fiction"',
+            publication: 'Los Angeles Review of Books',
+            links: [
+              { label: 'Read essay', href: 'https://lareviewofbooks.org/article/black-artists-and-the-logic-of-the-market-on-cord-jeffersons-american-fiction/' },
+            ],
+          },
+        ],
+      },
+    ],
   },
 
   bio: {
@@ -129,13 +171,15 @@ const MODALS = {
   },
 
   social: {
-    eyebrow: 'Find Eskor',
-    title: 'Online',
     type: 'social',
+    img: 'assets/images/author-card-pic.jpg',
+    eyebrow: 'Online',
+    title: 'I Post Online',
+    intro: 'On Instagram and TikTok I keep a visual diary, and touch on all things life, literature, and culture. On Substack I go on the very occasional rant.',
     links: [
-      { label: 'Instagram', href: '#' },
-      { label: 'Substack', href: '#' },
-      { label: 'Twitter / X', href: '#' },
+      { label: 'Instagram', handle: '@sqorio', href: 'https://www.instagram.com/sqorio/' },
+      { label: 'TikTok',    handle: '@sqorio', href: 'https://www.tiktok.com/@sqorio' },
+      { label: 'Substack',  handle: '',        href: '#' },
     ],
   },
 
@@ -188,14 +232,16 @@ function buildHTML(data) {
       </a>`).join('');
     return `
       <div class="modal-book">
-        <div class="modal-book-cover" style="display:flex;align-items:center;justify-content:center;background:#F8F6F2;">
-          <img src="${data.logo}" alt="${data.title}" style="width:80%;object-fit:contain;display:block;" />
+        <div class="modal-writing-left" style="background:#F8F6F2;">
+          <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:32px;">
+            <img src="${data.logo}" alt="${data.title}" style="width:80%;object-fit:contain;display:block;" />
+          </div>
+          <p class="modal-writing-intro" style="color:rgba(26,24,20,0.65);">${data.body[0]}</p>
         </div>
         <div class="modal-book-text">
           <div class="modal-inner">
             <div class="modal-eyebrow">${data.eyebrow}</div>
             <h2 class="modal-title">${data.title}</h2>
-            <div class="modal-body">${bodyHTML}</div>
             <div class="modal-courses">
               <div class="modal-courses-label">Courses</div>
               ${coursesHTML}
@@ -254,6 +300,68 @@ function buildHTML(data) {
       </div>`;
   }
 
+  if (type === 'social') {
+    panel.dataset.theme = 'light';
+    panel.dataset.size  = 'large';
+    const linksHTML = data.links.map(l => `
+      <a class="modal-social-row" href="${l.href}" target="_blank" rel="noopener">
+        <span class="modal-social-platform">${l.label}</span>
+        ${l.handle ? `<span class="modal-social-handle">${l.handle}</span>` : ''}
+        <span class="modal-social-arrow">↗</span>
+      </a>`).join('');
+    return `
+      <div class="modal-book">
+        <div class="modal-writing-left">
+          <img class="modal-writing-img" src="${data.img}" alt="" style="object-position:center top;" />
+          <p class="modal-writing-intro">${data.intro}</p>
+        </div>
+        <div class="modal-book-text">
+          <div class="modal-inner">
+            <div class="modal-eyebrow">${data.eyebrow}</div>
+            <h2 class="modal-title">${data.title}</h2>
+            <div class="modal-social-links-list">${linksHTML}</div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  if (type === 'writing') {
+    panel.dataset.theme = 'light';
+    panel.dataset.size  = 'large';
+    const sectionsHTML = data.sections.map(s => {
+      const itemsHTML = s.items.map(item => {
+        const linksHTML = item.links.map((l, i) =>
+          `<a class="modal-writing-link" href="${l.href}" target="_blank" rel="noopener">${l.label} ↗</a>${i < item.links.length - 1 ? '<span class="modal-writing-link-sep">·</span>' : ''}`
+        ).join('');
+        return `
+          <div class="modal-writing-item">
+            <div class="modal-writing-title">${item.title}</div>
+            <div class="modal-writing-pub">${item.publication}</div>
+            <div class="modal-writing-links">${linksHTML}</div>
+          </div>`;
+      }).join('');
+      return `
+        <div class="modal-writing-section">
+          <div class="modal-writing-label">${s.label}</div>
+          ${itemsHTML}
+        </div>`;
+    }).join('');
+    return `
+      <div class="modal-book">
+        <div class="modal-writing-left">
+          ${data.img ? `<img class="modal-writing-img" src="${data.img}" alt="" />` : ''}
+          ${data.intro ? `<p class="modal-writing-intro">${data.intro}</p>` : ''}
+        </div>
+        <div class="modal-book-text">
+          <div class="modal-inner">
+            <div class="modal-eyebrow">${data.eyebrow}</div>
+            <h2 class="modal-title">${data.title}</h2>
+            <div class="modal-writing-sections">${sectionsHTML}</div>
+          </div>
+        </div>
+      </div>`;
+  }
+
   panel.dataset.theme = 'light';
   let html = '<div class="modal-inner">';
 
@@ -292,11 +400,7 @@ function buildHTML(data) {
     }
 
     if (type === 'social' && data.links) {
-      html += '<div class="modal-social">';
-      data.links.forEach(link => {
-        html += `<a href="${link.href}" class="modal-social-link">${link.label}</a>`;
-      });
-      html += '</div>';
+      // handled by dedicated branch below — fallthrough shouldn't reach here
     }
 
     if (type === 'form') {
