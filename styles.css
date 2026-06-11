@@ -230,19 +230,22 @@ a {
 
 /* --- Gallery photo tiles: static prints on a white wall --- */
 .t-photo1,
-.t-photo2 {
+.t-photo2,
+.t-custom-1 {
   cursor: default;
   background: #FFFFFF;
   transition: none;
   filter: none !important;
 }
 .t-photo1 > *,
-.t-photo2 > * {
+.t-photo2 > *,
+.t-custom-1 > * {
   transition: none !important;
   transform: none !important;
 }
 .t-photo1:active,
-.t-photo2:active {
+.t-photo2:active,
+.t-custom-1:active {
   filter: none !important;
 }
 
@@ -505,6 +508,17 @@ a {
 }
 
 /* =============================================
+   APP MODAL SCREENSHOT
+   ============================================= */
+.modal-app-screenshot {
+  width: 100%;
+  display: block;
+  border: 0.5px solid rgba(26, 24, 20, 0.1);
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+/* =============================================
    QUILL APP TILE
    ============================================= */
 .quill-img {
@@ -643,6 +657,68 @@ a {
   line-height: 1.55;
 }
 
+.postcard-email {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid rgba(26, 24, 20, 0.18);
+  color: #1A1814;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  padding: 6px 0 8px;
+  outline: none;
+  margin-bottom: 8px;
+}
+
+.postcard-email::placeholder {
+  color: rgba(26, 24, 20, 0.28);
+  font-style: italic;
+}
+
+.postcard-email:focus {
+  border-bottom-color: rgba(26, 24, 20, 0.45);
+}
+
+.postcard-success {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FAF7F2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.postcard-success.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.postcard-success-inner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.postcard-success-check {
+  font-size: 22px;
+  color: #1A1814;
+  opacity: 0.4;
+}
+
+.postcard-success-msg {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #1A1814;
+  line-height: 1.6;
+}
+
 .postcard-msg {
   width: 100%;
   background: transparent;
@@ -722,7 +798,14 @@ a {
   display: block;
   flex: 1;
   min-height: 0;
+  filter: invert(1);
 }
+
+/* Disable brightness filter on hover for social tile — it breaks mix-blend-mode:screen.
+   Use opacity on the inner content for subtle hover feedback instead. */
+.t-social { filter: none !important; }
+.t-social:hover .social-inner { opacity: 0.8; }
+.t-social .social-inner { transition: opacity 0.25s; }
 
 .social-links {
   display: flex;
@@ -1034,6 +1117,25 @@ a {
   max-width: 840px;
 }
 
+/* Social modal — wide enough to give each embed ~340px per column */
+.modal-panel[data-size="social"] {
+  max-width: min(1360px, 97vw);
+  max-height: 92vh;
+}
+
+.modal-panel[data-size="social"] .modal-writing-left {
+  flex: 0 0 200px;
+}
+
+.modal-panel[data-size="social"] .modal-writing-img {
+  object-position: center top;
+  flex: 0 0 60%;
+}
+
+.modal-panel[data-size="social"] .modal-inner {
+  padding: 32px 28px 36px;
+}
+
 .modal-book {
   display: flex;
   min-height: 420px;
@@ -1136,41 +1238,158 @@ a {
 }
 
 /* =============================================
-   SOCIAL MODAL
+   SOCIAL MODAL — THREE COLUMN
    ============================================= */
-.modal-social-links-list {
-  margin-top: 28px;
-  border-top: 0.5px solid rgba(26, 24, 20, 0.1);
-}
-
-.modal-social-row {
+.modal-social-inner {
+  padding: 36px 32px 28px;
   display: flex;
-  align-items: center;
-  padding: 18px 0;
-  border-bottom: 0.5px solid rgba(26, 24, 20, 0.08);
-  text-decoration: none;
-  transition: opacity 0.2s;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  overflow-y: auto;
 }
-.modal-social-row:hover { opacity: 0.6; }
 
-.modal-social-platform {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  color: #1A1814;
+.modal-social-header { flex-shrink: 0; }
+
+.modal-social-tagline {
+  font-size: 13px;
+  color: rgba(26, 24, 20, 0.55);
+  line-height: 1.6;
+  margin-top: 6px;
+  max-width: 520px;
+}
+
+.modal-social-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: start;
+  margin-top: 20px;
+}
+
+/* Each column: embed on top, link pinned to bottom */
+.modal-social-channel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%; /* stretch to grid-row height */
+}
+
+/* Embed bucket grows to fill the channel above the link */
+.modal-social-embed-wrap {
   flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  background: #f4f0e8;
 }
 
-.modal-social-handle {
-  font-size: 11px;
-  letter-spacing: 0.08em;
+/* TikTok anchor: aspect-ratio drives the grid-row height for all columns.
+   flex:none lets aspect-ratio take effect rather than flex: 1 overriding it. */
+.modal-social-embed-wrap:has(.modal-tiktok-iframe) {
+  flex: none;
+  aspect-ratio: 9 / 15; /* 9:16 video + ~6% for player chrome = 9:15 */
+  width: 100%;
+}
+
+/* Instagram blockquote fills the bucket */
+.modal-social-embed {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+/* TikTok iframe fills its aspect-ratio bucket */
+.modal-tiktok-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.modal-substack-preview {
+  background: #F8F5EE;
+  border: 0.5px solid rgba(26, 24, 20, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%; /* fills the flex:1 embed-wrap */
+}
+
+.modal-substack-cover-link {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  cursor: pointer;
+}
+
+.modal-substack-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* show full image without cropping */
+  object-position: center;
+  background: #F8F5EE;
+  display: block;
+}
+
+.modal-substack-cover-placeholder {
+  width: 100%;
+  flex: 0 0 55%;
+  background: linear-gradient(135deg, #E8E2D6 0%, #D4CBBA 100%);
+}
+
+.modal-substack-body {
+  padding: 16px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-substack-label {
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: rgba(26, 24, 20, 0.38);
-  margin-right: 14px;
 }
 
-.modal-social-arrow {
+.modal-substack-title {
+  font-family: 'Playfair Display', serif;
   font-size: 16px;
-  color: #C8601A;
+  font-style: italic;
+  color: #1A1814;
+  line-height: 1.4;
 }
+
+.modal-substack-sub {
+  font-size: 11px;
+  color: rgba(26, 24, 20, 0.5);
+  line-height: 1.5;
+}
+
+.modal-social-channel-link {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #C8601A;
+  text-decoration: none;
+  border-bottom: 0.5px solid rgba(200, 96, 26, 0.3);
+  padding-bottom: 2px;
+  align-self: flex-start;
+  transition: opacity 0.2s;
+  margin-top: auto; /* pins link to bottom of its equal-height channel */
+  padding-top: 10px;
+  flex-shrink: 0;
+}
+.modal-social-channel-link:hover { opacity: 0.65; }
+
+/* Legacy embed helpers (kept for safety) */
+.modal-ig-embed-wrap { display: none; }
+.modal-ig-embed { display: none; }
+.modal-social-links-list { display: none; }
 
 /* =============================================
    WRITING MODAL (essays)
@@ -1185,10 +1404,10 @@ a {
 
 .modal-writing-img {
   width: 100%;
-  flex: 1;
+  flex: 0 0 55%;
   min-height: 0;
   object-fit: cover;
-  object-position: center;
+  object-position: left center;
   display: block;
 }
 
@@ -1315,6 +1534,26 @@ a {
    ============================================= */
 
 /* Tablet — compress row height, keep 2-col layout */
+/* On mid-size viewports: trio uses min-width columns and scrolls horizontally if needed */
+@media (max-width: 1200px) {
+  .modal-social-trio {
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+}
+
+/* On small screens: social trio goes single-column */
+@media (max-width: 700px) {
+  .modal-social-trio {
+    grid-template-columns: 1fr;
+    overflow-x: visible;
+  }
+  .modal-social-embed-wrap {
+    height: 480px;
+  }
+}
+
 @media (max-width: 900px) {
   .mosaic {
     grid-auto-rows: 170px;

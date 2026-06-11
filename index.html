@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script async src="https://www.instagram.com/embed.js"></script>
+  <script async src="https://www.tiktok.com/embed.js"></script>
 </head>
 <body>
 
@@ -141,26 +143,38 @@
     <!-- Contact -->
     <div class="tile t-mailing">
       <div class="postcard-stage">
-        <div class="postcard-card">
+        <!-- Replace YOUR_FORM_ID below with the ID from formspree.io/forms after you create a form -->
+        <form class="postcard-card" id="postcard-form"
+              action="https://formspree.io/f/mykankod"
+              method="POST">
           <div class="postcard-top">
             <span class="postcard-label">POST CARD</span>
             <div class="postcard-stamp"></div>
           </div>
           <div class="postcard-heading">If you write me an email,<br>I will write you back.</div>
-          <textarea class="postcard-msg" placeholder="Your message…" rows="3"></textarea>
+          <input class="postcard-email" type="email" name="email"
+                 placeholder="Your email address" required />
+          <textarea class="postcard-msg" name="message"
+                    placeholder="Your message…" rows="3" required></textarea>
           <div class="postcard-footer">
             <span class="postcard-to">To: Eskor David Johnson</span>
-            <button class="postcard-send">Send</button>
+            <button class="postcard-send" type="submit">Send</button>
+          </div>
+        </form>
+        <div class="postcard-success" id="postcard-success" aria-hidden="true">
+          <div class="postcard-success-inner">
+            <div class="postcard-success-check">✓</div>
+            <p class="postcard-success-msg">Message sent.<br>I'll write you back.</p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Social -->
-    <div class="tile t-social" data-modal="social" style="background:#FFFFFF;">
+    <div class="tile t-social" data-modal="social" style="background:#000000;">
       <div class="social-inner">
         <img class="social-logos-img" src="assets/images/social-media-logos.png" alt="Instagram and TikTok" />
-        <a class="tl tl-d" href="#">I post online →</a>
+        <a class="tl tl-l" href="#">I post online →</a>
       </div>
     </div>
 
@@ -169,6 +183,10 @@
       <img class="gallery-print" src="assets/images/bird-doodle-2.jpg" alt="" />
     </div>
 
+    <!-- Bird doodle 3 -->
+    <div class="tile t-custom-1">
+      <img class="gallery-print" src="assets/images/bird-doodle-3.jpg" alt="" />
+    </div>
 
   </div><!-- end .mosaic -->
   </div><!-- end .mosaic-wrap -->

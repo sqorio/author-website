@@ -88,9 +88,15 @@ const MODALS = {
   },
 
   app: {
-    eyebrow: 'Product · Essay Writing',
+    type: 'app',
+    img: 'assets/images/quill-logo-wordmark-gradient.jpg',
+    intro: 'While writing my novel I used to work with high school students writing their college essays. During the pandemic I started building an app to keep in touch with them.',
+    eyebrow: 'Essay Writing',
     title: 'Quill',
-    body: 'Quill is an essay writing app I built for writers and students who take the craft seriously. It\'s designed to support the full writing process — from first thought to final draft — without the noise of a generic word processor.\n\nBuilt for people who care about sentences.',
+    body: [
+      'Quill is a simple, structured platform that guides students through the crucial early stages of writing their college application essays.',
+      'Think of it as TurboTax for the personal statement: an intuitive, step-by-step process that helps students transform their initial ideas into a detailed, personalized draft ready for refining.',
+    ],
     link: { href: 'https://www.itsquill.com/', label: 'Visit Quill →' },
   },
 
@@ -143,6 +149,56 @@ const MODALS = {
     ],
   },
 
+  interviews: {
+    type: 'writing',
+    img: 'assets/images/interviews-tile.png',
+    eyebrow: 'Interviews & Profiles',
+    title: 'In Conversation',
+    intro: 'I enjoy any chance I get to talk about writing. Sometimes my own, sometimes about writing in general.',
+    sections: [
+      {
+        label: 'Interviews',
+        items: [
+          {
+            title: 'Video Interview — Pay As You Go',
+            publication: 'YouTube',
+            links: [
+              { label: 'Watch', href: 'https://www.youtube.com/watch?v=mdBRk2lGJRg' },
+            ],
+          },
+          {
+            title: 'The Bookshelf of Jennifer Morrison — Ep. 23 w/ Taylor Goldsmith',
+            publication: 'Apple Podcasts · March 2025',
+            links: [
+              { label: 'Listen', href: 'https://podcasts.apple.com/us/podcast/episode-23-jennifer-special-guest-taylor-goldsmith/id1695507506?i=1000697647612' },
+            ],
+          },
+          {
+            title: 'An Interview with Eskor David Johnson — 2023 First Novel Prize Finalist',
+            publication: 'Center for Fiction',
+            links: [
+              { label: 'Read interview', href: 'https://centerforfiction.org/interviews/an-interview-with-eskor-david-johnson-2023-first-novel-prize-finalist-for-pay-as-you-go/' },
+            ],
+          },
+          {
+            title: 'Masterclass on Prose Style',
+            publication: 'Auraist · December 2023',
+            links: [
+              { label: 'Read interview', href: 'https://auraist.substack.com/p/masterclass-on-prose-style-from-eskor' },
+            ],
+          },
+          {
+            title: 'Author Spotlight: Eskor David Johnson, "Pay As You Go"',
+            publication: 'Our Culture · October 2023',
+            links: [
+              { label: 'Read interview', href: 'https://ourculturemag.com/2023/10/29/author-spotlight-eskor-david-johnson-pay-as-you-go/' },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
   bio: {
     eyebrow: 'About',
     title: 'Eskor David Johnson',
@@ -173,13 +229,33 @@ const MODALS = {
   social: {
     type: 'social',
     img: 'assets/images/author-card-pic.jpg',
+    intro: 'On Instagram and TikTok I keep a visual diary, and touch on all things life, literature, and culture. On Substack I go on the very occasional rant.',
     eyebrow: 'Online',
     title: 'I Post Online',
-    intro: 'On Instagram and TikTok I keep a visual diary, and touch on all things life, literature, and culture. On Substack I go on the very occasional rant.',
-    links: [
-      { label: 'Instagram', handle: '@sqorio', href: 'https://www.instagram.com/sqorio/' },
-      { label: 'TikTok',    handle: '@sqorio', href: 'https://www.tiktok.com/@sqorio' },
-      { label: 'Substack',  handle: '',        href: '#' },
+    channels: [
+      {
+        platform: 'Instagram',
+        handle: '@sqorio',
+        href: 'https://www.instagram.com/sqorio/',
+        embedType: 'instagram',
+        embedUrl: 'https://www.instagram.com/p/DXjyH55E9SQ/',
+      },
+      {
+        platform: 'TikTok',
+        handle: '@sqorio',
+        href: 'https://www.tiktok.com/@sqorio',
+        embedType: 'tiktok',
+        videoId: '7555325007249837343',
+      },
+      {
+        platform: 'Substack',
+        handle: '',
+        href: 'https://substack.com/home/post/p-200541837',
+        embedType: 'substack',
+        title: 'Sautéed Fillet of Atlantic Loup de Mer with Bread',
+        subtitle: 'On the impossibility of entrepreneurs',
+        img: 'assets/images/substack-cover.jpg',
+      },
     ],
   },
 
@@ -300,15 +376,63 @@ function buildHTML(data) {
       </div>`;
   }
 
-  if (type === 'social') {
+  if (type === 'app') {
     panel.dataset.theme = 'light';
     panel.dataset.size  = 'large';
-    const linksHTML = data.links.map(l => `
-      <a class="modal-social-row" href="${l.href}" target="_blank" rel="noopener">
-        <span class="modal-social-platform">${l.label}</span>
-        ${l.handle ? `<span class="modal-social-handle">${l.handle}</span>` : ''}
-        <span class="modal-social-arrow">↗</span>
-      </a>`).join('');
+    const bodyHTML = data.body.map(p => `<p class="modal-body-para">${p}</p>`).join('');
+    return `
+      <div class="modal-book">
+        <div class="modal-writing-left" style="background:#000;">
+          <img class="modal-writing-img" src="${data.img}" alt="${data.title}" style="object-position:center;" />
+          ${data.intro ? `<p class="modal-writing-intro">${data.intro}</p>` : ''}
+        </div>
+        <div class="modal-book-text">
+          <div class="modal-inner">
+            <div class="modal-eyebrow">${data.eyebrow}</div>
+            <h2 class="modal-title">${data.title}</h2>
+            <img class="modal-app-screenshot" src="assets/images/quill-landing-page.png" alt="Quill app" />
+            <div class="modal-body">${bodyHTML}</div>
+            <a href="${data.link.href}" class="modal-cta" target="_blank" rel="noopener">${data.link.label}</a>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  if (type === 'social') {
+    panel.dataset.theme = 'light';
+    panel.dataset.size  = 'social';
+    const channelsHTML = data.channels.map(c => {
+      let embedHTML = '';
+      if (c.embedType === 'instagram') {
+        embedHTML = `<blockquote class="instagram-media modal-social-embed"
+          data-instgrm-permalink="${c.embedUrl}?utm_source=ig_embed"
+          data-instgrm-version="14"></blockquote>`;
+      } else if (c.embedType === 'tiktok') {
+        embedHTML = `<iframe class="modal-tiktok-iframe"
+          src="https://www.tiktok.com/embed/v2/${c.videoId}?autoplay=0"
+          allowfullscreen
+          allow="encrypted-media"></iframe>`;
+      } else if (c.embedType === 'substack') {
+        const coverImg = c.img
+          ? `<a href="${c.href}" target="_blank" rel="noopener" class="modal-substack-cover-link"><img class="modal-substack-cover" src="${c.img}" alt="" /></a>`
+          : `<div class="modal-substack-cover-placeholder"></div>`;
+        embedHTML = `<div class="modal-substack-preview">
+          ${coverImg}
+          <div class="modal-substack-body">
+            <div class="modal-substack-label">Latest post</div>
+            <div class="modal-substack-title">${c.title}</div>
+            <div class="modal-substack-sub">${c.subtitle}</div>
+          </div>
+        </div>`;
+      }
+      return `
+        <div class="modal-social-channel">
+          <div class="modal-social-embed-wrap">${embedHTML}</div>
+          <a class="modal-social-channel-link" href="${c.href}" target="_blank" rel="noopener">
+            ${c.platform}${c.handle ? ` ${c.handle}` : ''} ↗
+          </a>
+        </div>`;
+    }).join('');
     return `
       <div class="modal-book">
         <div class="modal-writing-left">
@@ -319,7 +443,7 @@ function buildHTML(data) {
           <div class="modal-inner">
             <div class="modal-eyebrow">${data.eyebrow}</div>
             <h2 class="modal-title">${data.title}</h2>
-            <div class="modal-social-links-list">${linksHTML}</div>
+            <div class="modal-social-trio">${channelsHTML}</div>
           </div>
         </div>
       </div>`;
@@ -429,6 +553,9 @@ function openModal(key) {
   overlay.setAttribute('aria-hidden', 'false');
   overlay.classList.add('is-open');
   document.body.style.overflow = 'hidden';
+  // Re-process any Instagram / TikTok embeds injected into the modal
+  if (window.instgrm?.Embeds) window.instgrm.Embeds.process();
+  if (window.tiktok?.Embeds) window.tiktok.Embeds.render();
 }
 
 function closeModal() {
@@ -456,3 +583,40 @@ overlay.addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
+
+// ── Postcard form ──────────────────────────────────────────────────────────
+const postcardForm    = document.getElementById('postcard-form');
+const postcardSuccess = document.getElementById('postcard-success');
+
+if (postcardForm) {
+  postcardForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = postcardForm.querySelector('.postcard-send');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch(postcardForm.action, {
+        method: 'POST',
+        body: new FormData(postcardForm),
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
+        postcardForm.style.opacity = '0';
+        postcardForm.style.pointerEvents = 'none';
+        postcardSuccess.setAttribute('aria-hidden', 'false');
+        postcardSuccess.classList.add('is-visible');
+        postcardForm.reset();
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Send';
+        alert('Something went wrong — please try again.');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Send';
+      alert('Could not send — check your connection.');
+    }
+  });
+}
