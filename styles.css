@@ -1663,13 +1663,37 @@ a {
   .modal-panel,
   .modal-panel[data-size="large"],
   .modal-panel[data-size="social"] {
-    max-width: 100%;
-    width: 100%;
+    /* inset from screen edges so background peeks through */
+    width: calc(100% - 20px);
+    max-width: calc(100% - 20px);
+    margin: 0 10px;
     max-height: 92vh;
-    border-radius: 0;
+    border-radius: 4px 4px 0 0;
+    /* flex column: close button pinned, content scrolls */
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden; /* panel itself doesn't scroll */
   }
+  /* close button stays at top, never scrolls away */
+  .modal-close {
+    position: relative;
+    top: unset;
+    right: unset;
+    align-self: flex-end;
+    flex-shrink: 0;
+    margin: 10px 10px 0 0;
+    padding: 6px;
+  }
+  /* content area is the scroller */
+  .modal-content {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    min-height: 0;
+  }
+  .modal-content::-webkit-scrollbar { display: none; }
   .modal-inner {
-    padding: 32px 24px 40px;
+    padding: 16px 24px 40px;
   }
 
   /* Two-column modals stack vertically */
