@@ -1629,8 +1629,8 @@ a {
   .t-interviews { order: 8; }
   .t-photo2     { order: 9; }  /* breath after credentials/speaking */
   .t-bio        { order: 10; }
-  .t-app        { order: 11; }
-  .t-social     { order: 12; }
+  .t-social     { order: 11; }
+  .t-app        { order: 12; }
   .t-custom-1   { order: 13; } /* breath before close */
   .t-mailing    { order: 14; }
 
