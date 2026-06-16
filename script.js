@@ -308,11 +308,11 @@ function buildHTML(data) {
       </a>`).join('');
     return `
       <div class="modal-book">
-        <div class="modal-writing-left" style="background:#F8F6F2;">
+        <div class="modal-writing-left">
           <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:32px;">
-            <img src="${data.logo}" alt="${data.title}" style="width:80%;object-fit:contain;display:block;" />
+            <img src="${data.logo}" alt="${data.title}" style="width:75%;object-fit:contain;display:block;background:#FAF7F2;padding:20px;border-radius:4px;" />
           </div>
-          <p class="modal-writing-intro" style="color:rgba(26,24,20,0.65);">${data.body[0]}</p>
+          <p class="modal-writing-intro">${data.body[0]}</p>
         </div>
         <div class="modal-book-text">
           <div class="modal-inner">
