@@ -1706,16 +1706,19 @@ a {
   .modal-writing-left,
   .modal-panel[data-size="social"] .modal-writing-left {
     flex: none !important;
-    height: 220px;
+    height: auto;       /* let image + copy size naturally */
     width: 100%;
   }
   .modal-writing-img {
-    flex: 1 !important;
+    flex: 0 0 180px !important; /* fixed thumbnail height */
+    width: 100%;
     object-position: center top;
   }
   .modal-writing-intro {
-    font-size: 13px;
-    padding: 16px 20px;
+    display: block; /* override the 680px hide */
+    font-size: 14px;
+    line-height: 1.65;
+    padding: 18px 24px 20px;
   }
 
   /* Book modal cover strip */
