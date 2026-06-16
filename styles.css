@@ -1617,22 +1617,21 @@ a {
   }
 
   /* ── Mobile narrative order ──
-     1 portrait → 2 book → 3 TC Boyle → 4 essays → 5 stonybrook
-     → 6 kirkus → 7 interviews → 8 ed park → 9 quill → 10 social
-     → 11 photo1 → 12 photo2 → 13 custom-1 → 14 mailing          */
+     Doodles dispersed as visual breaths between content sections:
+     after novel world, after interviews, after social              */
   .t-portrait   { order: 1; }
   .t-book       { order: 2; }
   .t-quote1     { order: 3; }
-  .t-essays     { order: 4; }
-  .t-stonybrook { order: 5; }
-  .t-quote2     { order: 6; }
-  .t-interviews { order: 7; }
-  .t-bio        { order: 8; }
-  .t-app        { order: 9; }
-  .t-social     { order: 10; }
-  .t-photo1     { order: 11; }
-  .t-photo2     { order: 12; }
-  .t-custom-1   { order: 13; }
+  .t-photo1     { order: 4; }  /* breath after novel world */
+  .t-essays     { order: 5; }
+  .t-stonybrook { order: 6; }
+  .t-quote2     { order: 7; }
+  .t-interviews { order: 8; }
+  .t-photo2     { order: 9; }  /* breath after credentials/speaking */
+  .t-bio        { order: 10; }
+  .t-app        { order: 11; }
+  .t-social     { order: 12; }
+  .t-custom-1   { order: 13; } /* breath before close */
   .t-mailing    { order: 14; }
 
   /* Per-tile heights (span × 100px base) */
