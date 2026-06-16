@@ -620,3 +620,13 @@ if (postcardForm) {
     }
   });
 }
+
+// ── Nav smooth-scroll ──────────────────────────────────────────
+document.querySelectorAll('.nav-links a[data-scroll]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.dataset.scroll);
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+});
