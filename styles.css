@@ -1714,6 +1714,13 @@ a {
     width: 100%;
     object-position: center top;
   }
+  /* Social modal illustration: use contain so full face shows */
+  .modal-panel[data-size="social"] .modal-writing-img {
+    flex: 0 0 260px !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: #FAF7F2;
+  }
   .modal-writing-intro {
     display: block; /* override the 680px hide */
     font-size: 14px;
