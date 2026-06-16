@@ -1593,6 +1593,9 @@ a {
   .hero {
     height: 100svh;
   }
+  .hero-img {
+    object-position: right center;
+  }
 
   /* ── Intro ── */
   .intro {
