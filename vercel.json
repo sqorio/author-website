@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/office-hours",
+      "destination": "/office-hours/",
+      "permanent": true
+    }
+  ]
+}

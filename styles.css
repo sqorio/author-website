@@ -21,16 +21,39 @@ a {
 }
 
 /* =============================================
+   PAGE TRANSITION (cross-page fade)
+   ============================================= */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: #1A1814;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+.page-transition.is-active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* =============================================
    NAVIGATION
    ============================================= */
 .nav {
-  position: fixed;
+  position: absolute;
   top: 0; left: 0; right: 0;
-  z-index: 210; /* above mobile menu overlay (200) */
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 26px 40px;
+}
+
+/* Pin nav only while mobile menu is open (keeps hamburger/X tappable) */
+.nav.is-menu-open {
+  position: fixed;
+  z-index: 210;
 }
 
 .nav-wordmark {
@@ -2108,4 +2131,219 @@ a {
     gap: 10px;
     text-align: center;
   }
+}
+
+/* =============================================
+   OFFICE HOURS — STANDALONE PAGE  (/office-hours)
+   Full-page funnel target for social bio links.
+   Reuses .oh-* form/schedule/theme classes from the
+   Office Hours modal; classes below add page chrome.
+   ============================================= */
+
+.ohp-body {
+  position: relative;
+  background: #2A2520;
+  color: #1A1814;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* full-viewport hero background */
+.ohp-hero-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ohp-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.ohp-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 24, 20, 0.15) 0%,
+    rgba(26, 24, 20, 0.25) 50%,
+    rgba(26, 24, 20, 0.55) 100%
+  );
+}
+
+.ohp-accent,
+.ohp-topbar,
+.ohp-main,
+.ohp-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* thin brand accent strip at very top */
+.ohp-accent {
+  height: 4px;
+  width: 100%;
+  background: #FF6E00;
+  flex-shrink: 0;
+}
+
+/* slim top bar */
+.ohp-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 40px;
+  flex-shrink: 0;
+}
+
+.ohp-wordmark {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: #F4F0E8;
+  font-weight: 400;
+}
+
+.ohp-back {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(244, 240, 232, 0.75);
+  transition: color 0.2s;
+}
+.ohp-back:hover { color: #F4F0E8; }
+
+/* main centers the card vertically */
+.ohp-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 40px 56px;
+}
+
+/* the card: dark feature + parchment form, echoes the modal split */
+.ohp-card {
+  display: flex;
+  width: 100%;
+  max-width: 920px;
+  min-height: 460px;
+  background: #FAF7F2;
+  box-shadow: 0 24px 70px rgba(26, 24, 20, 0.35);
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+/* LEFT dark panel */
+.ohp-left {
+  flex: 0 0 42%;
+  background: #1C1914;
+  display: flex;
+  flex-direction: column;
+}
+
+.ohp-left-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 40px;
+}
+
+.ohp-eyebrow { margin-bottom: 16px; }
+
+/* larger than the modal heading — this is a hero, not an overlay */
+.ohp-heading {
+  font-size: 58px;
+  margin-bottom: 24px;
+}
+
+.ohp-lede {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.65;
+  color: rgba(244, 240, 232, 0.72);
+  margin-bottom: 32px;
+  max-width: 30ch;
+}
+
+.ohp-schedule { gap: 12px; }
+
+/* RIGHT form panel */
+.ohp-right {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+}
+
+.ohp-right-inner {
+  flex: 1;
+  padding: 48px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ohp-theme { margin-bottom: 28px; }
+
+.ohp-form-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: #1A1814;
+  margin-bottom: 18px;
+}
+
+/* footer */
+.ohp-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px;
+  border-top: 0.5px solid rgba(244, 240, 232, 0.15);
+  flex-shrink: 0;
+}
+
+.ohp-footer-name {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(244, 240, 232, 0.5);
+}
+
+.ohp-footer-links {
+  display: flex;
+  gap: 22px;
+  list-style: none;
+}
+
+.ohp-footer-links a {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(244, 240, 232, 0.65);
+  transition: color 0.2s;
+}
+.ohp-footer-links a:hover { color: #F4F0E8; }
+
+/* responsive: stack the split on narrow screens */
+@media (max-width: 720px) {
+  .ohp-hero-img { object-position: right center; }
+  .ohp-topbar { padding: 20px 24px; }
+  .ohp-main   { padding: 20px 20px 40px; }
+  .ohp-card   { flex-direction: column; max-width: 460px; min-height: 0; }
+  .ohp-left   { flex: none; }
+  .ohp-left-inner { padding: 40px 32px; }
+  .ohp-heading { font-size: 46px; }
+  .ohp-lede { max-width: none; }
+  .ohp-right-inner { padding: 36px 32px; }
+  .ohp-footer { padding: 20px 24px; flex-direction: column; gap: 12px; }
 }

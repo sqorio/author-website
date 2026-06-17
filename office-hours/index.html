@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Office-Hours–specific title + share preview -->
+  <title>Office Hours — Eskor David Johnson</title>
+  <meta name="description" content="Submit a question for Office Hours — my weekly live Q&A on writing, craft, and books. Live Thursdays at 8 PM ET on TikTok. I'll answer it on air." />
+
+  <meta property="og:title" content="Office Hours — Submit a question" />
+  <meta property="og:description" content="My weekly live Q&A on writing, craft, and books. Live Thursdays at 8 PM ET on TikTok. Send a question and I'll answer it on air." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sqorio.com/office-hours/" />
+  <meta property="og:image" content="https://sqorio.com/assets/images/hero-image.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Office Hours — Submit a question" />
+  <meta name="twitter:description" content="My weekly live Q&A on writing. Live Thursdays 8 PM ET on TikTok. Send a question and I'll answer it on air." />
+  <meta name="twitter:image" content="https://sqorio.com/assets/images/hero-image.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/assets/images/sqorio-favicon-2.png" />
+
+  <!-- Shared site styles (bundled by Vite); page-specific styles live under the
+       "OFFICE HOURS — STANDALONE PAGE" section of styles.css -->
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="ohp-body">
+
+  <!-- hero background — same image as main site -->
+  <div class="ohp-hero-bg" aria-hidden="true">
+    <img class="ohp-hero-img" src="/assets/images/hero-image.jpg" alt="" />
+    <div class="ohp-hero-overlay"></div>
+  </div>
+
+  <!-- thin brand accent strip -->
+  <div class="ohp-accent"></div>
+
+  <!-- slim top bar -->
+  <header class="ohp-topbar">
+    <a class="ohp-wordmark" href="/">Eskor David Johnson</a>
+    <a class="ohp-back" href="/">← Back to site</a>
+  </header>
+
+  <!-- main -->
+  <main class="ohp-main">
+    <div class="ohp-card">
+
+      <!-- LEFT: dark feature panel -->
+      <div class="ohp-left">
+        <div class="ohp-left-inner">
+          <div class="modal-eyebrow oh-eyebrow ohp-eyebrow">Weekly Live</div>
+          <h1 class="oh-heading ohp-heading">Office<br>Hours</h1>
+          <p class="ohp-lede">Every week on TikTok, I go live and take questions about writing: technique, books, gossip, or publishing. Submit something below. I'll answer it Thursday.</p>
+          <div class="oh-schedule ohp-schedule">
+            <div class="oh-schedule-time">Live · Thursdays · 8 PM ET</div>
+            <a class="oh-schedule-link" href="https://www.tiktok.com/@sqorio" target="_blank" rel="noopener">Watch on TikTok ↗</a>
+            <a class="oh-schedule-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Office+Hours+%E2%80%94+Eskor+David+Johnson&dates=20260618T000000Z%2F20260618T010000Z&recur=RRULE%3AFREQ%3DWEEKLY%3BBYDAY%3DTH&details=Weekly+live+Q%26A+on+writing.+Watch+on+TikTok+at+https%3A%2F%2Fwww.tiktok.com%2F%40sqorio" target="_blank" rel="noopener">Add to calendar ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: theme + submission form -->
+      <div class="ohp-right">
+        <div class="ohp-right-inner">
+
+          <!-- THEME OF THE WEEK — edit this line each week -->
+          <div class="oh-theme ohp-theme">
+            <div class="oh-theme-label">Theme of the week</div>
+            <div class="oh-theme-text">Beginnings: how to open a story so a reader can't put it down.</div>
+          </div>
+
+          <div class="ohp-form-heading">Submit a question</div>
+
+          <div class="oh-form-wrap">
+            <form class="oh-form" id="oh-form"
+                  action="https://formspree.io/f/xaqzkzdd" method="POST">
+              <input type="hidden" name="_subject" value="Office Hours — question submission" />
+              <textarea class="oh-question" name="question"
+                        placeholder="Your question or topic…" rows="4" required></textarea>
+              <input class="oh-email-inp" type="email" name="email"
+                     placeholder="Your email address" required />
+              <div class="oh-form-footer">
+                <span class="oh-promise">I'll answer it live on Thursday.</span>
+                <button class="oh-submit" type="submit">Submit →</button>
+              </div>
+            </form>
+            <div class="oh-success" id="oh-success" aria-hidden="true">
+              <div class="oh-success-inner">
+                <div class="oh-success-check">✓</div>
+                <p class="oh-success-msg">Question submitted.<br>See you Thursday.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /ohp-card -->
+  </main>
+
+  <!-- footer -->
+  <footer class="ohp-footer">
+    <span class="ohp-footer-name">© 2026 Eskor David Johnson</span>
+    <ul class="ohp-footer-links">
+      <li><a href="https://www.instagram.com/sqorio/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://www.tiktok.com/@sqorio" target="_blank" rel="noopener">TikTok</a></li>
+      <li><a href="/">Home</a></li>
+    </ul>
+  </footer>
+
+  <div class="page-transition" id="pageTransition" aria-hidden="true"></div>
+
+  <script type="module">
+    import { navigateWithFade, initPageEnterFade } from '/page-transition.js';
+
+    initPageEnterFade();
+
+    document.querySelectorAll('.ohp-wordmark, .ohp-back, .ohp-footer-links a[href="/"]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        navigateWithFade('/');
+      });
+    });
+
+    // Standalone Office Hours form — mirrors the site's Formspree submit pattern
+    const form = document.getElementById('oh-form');
+    const successEl = document.getElementById('oh-success');
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('.oh-submit');
+        btn.disabled = true;
+        btn.textContent = 'Submitting…';
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+          });
+
+          if (res.ok) {
+            form.style.opacity = '0';
+            form.style.pointerEvents = 'none';
+            successEl.setAttribute('aria-hidden', 'false');
+            successEl.classList.add('is-visible');
+            form.reset();
+          } else {
+            btn.disabled = false;
+            btn.textContent = 'Submit →';
+            alert('Something went wrong — please try again.');
+          }
+        } catch {
+          btn.disabled = false;
+          btn.textContent = 'Submit →';
+          alert('Could not send — check your connection.');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

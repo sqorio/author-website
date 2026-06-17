@@ -3,6 +3,7 @@
    ============================================================ */
 
 import { tiles as layoutTiles } from './grid-layout.js';
+import { navigateWithFade, initPageEnterFade, OH_URL } from './page-transition.js';
 
 // Inject tile grid placements from shared source of truth
 (function injectGridCSS() {
@@ -278,7 +279,7 @@ const MODALS = {
 
   officehours: {
     type: 'officehours',
-    intro: 'Every week on TikTok, I go live and take questions about writing — technique, process, books, craft. Submit something below. I\'ll answer it Thursday.',
+    intro: 'Every week on TikTok, I go live and take questions about writing: technique, books, gossip, or publishing. Submit something below. I\'ll answer it Thursday.',
     liveLink: 'https://www.tiktok.com/@sqorio',
     calLink: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Office+Hours+%E2%80%94+Eskor+David+Johnson&dates=20260618T000000Z%2F20260618T010000Z&recur=RRULE%3AFREQ%3DWEEKLY%3BBYDAY%3DTH&details=Weekly+live+Q%26A+on+writing.+Watch+on+TikTok+at+https%3A%2F%2Fwww.tiktok.com%2F%40sqorio',
     theme: 'TBD',
@@ -701,25 +702,17 @@ document.querySelectorAll('a[data-scroll]').forEach(link => {
   });
 });
 
-// ── Office Hours nav trigger (desktop) ─────────────────────────
-const ohNavLink = document.querySelector('.nav-oh');
-if (ohNavLink) {
-  ohNavLink.addEventListener('click', e => {
-    e.preventDefault();
-    openModal('officehours');
-  });
-}
-
 // ── Hamburger / mobile menu ──────────────────────────────────────
+const navEl        = document.querySelector('.nav');
 const hamburgerBtn = document.getElementById('navHamburger');
 const mobileMenu   = document.getElementById('mobileMenu');
-const mobileOhLink = mobileMenu?.querySelector('.mobile-oh');
 
 function openMobileMenu() {
   hamburgerBtn.classList.add('is-open');
   hamburgerBtn.setAttribute('aria-expanded', 'true');
   mobileMenu.classList.add('is-open');
   mobileMenu.setAttribute('aria-hidden', 'false');
+  navEl?.classList.add('is-menu-open');
   document.body.style.overflow = 'hidden';
 }
 
@@ -728,6 +721,7 @@ function closeMobileMenu() {
   hamburgerBtn.setAttribute('aria-expanded', 'false');
   mobileMenu.classList.remove('is-open');
   mobileMenu.setAttribute('aria-hidden', 'true');
+  navEl?.classList.remove('is-menu-open');
   document.body.style.overflow = '';
 }
 
@@ -736,7 +730,6 @@ if (hamburgerBtn) {
     hamburgerBtn.classList.contains('is-open') ? closeMobileMenu() : openMobileMenu();
   });
 }
-
 
 // Close menu when any mobile nav link is tapped
 mobileMenu?.querySelectorAll('a[data-scroll]').forEach(link => {
@@ -748,19 +741,36 @@ mobileMenu?.querySelectorAll('a[data-scroll]').forEach(link => {
   });
 });
 
-// Office Hours in mobile menu opens the modal
-if (mobileOhLink) {
-  mobileOhLink.addEventListener('click', e => {
-    e.preventDefault();
-    closeMobileMenu();
-    setTimeout(() => openModal('officehours'), 300);
-  });
-}
-
 // Close mobile menu on Escape
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && mobileMenu?.classList.contains('is-open')) closeMobileMenu();
 });
+
+// ── Office Hours → dedicated page with fade ────────────────────
+function bindOhNavigation() {
+  const ohTile   = document.querySelector('.t-officehours');
+  const ohNav    = document.querySelector('.nav-oh');
+  const ohMobile = mobileMenu?.querySelector('.mobile-oh');
+
+  const go = (e, afterClose) => {
+    e.preventDefault();
+    if (afterClose) {
+      closeMobileMenu();
+      setTimeout(() => navigateWithFade(OH_URL), 200);
+    } else {
+      navigateWithFade(OH_URL);
+    }
+  };
+
+  ohNav?.addEventListener('click', e => go(e, false));
+  ohMobile?.addEventListener('click', e => go(e, true));
+  ohTile?.addEventListener('click', e => {
+    if (e.target.closest('input, button')) return;
+    go(e, false);
+  });
+}
+
+bindOhNavigation();
 
 // ── Office Hours form (event-delegated — form lives inside modal) ─
 document.getElementById('modalContent').addEventListener('submit', async e => {
@@ -797,3 +807,5 @@ document.getElementById('modalContent').addEventListener('submit', async e => {
     alert('Could not send — check your connection.');
   }
 });
+
+initPageEnterFade();
