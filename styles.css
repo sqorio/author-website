@@ -30,11 +30,22 @@ a {
   z-index: 9999;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.45s ease;
+  transition: opacity 0.65s ease-in-out;
 }
 .page-transition.is-active {
   opacity: 1;
   pointer-events: all;
+}
+
+/* Hold cover instantly on arrival — no flash before fade-in */
+html.page-enter-pending .page-transition {
+  opacity: 1;
+  pointer-events: all;
+  transition: none;
+}
+
+html.page-enter-fading .page-transition {
+  transition: opacity 0.65s ease-in-out;
 }
 
 /* =============================================

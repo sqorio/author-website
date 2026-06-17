@@ -27,8 +27,17 @@
   <!-- Shared site styles (bundled by Vite); page-specific styles live under the
        "OFFICE HOURS — STANDALONE PAGE" section of styles.css -->
   <link rel="stylesheet" href="/styles.css" />
+  <script>
+    try {
+      if (sessionStorage.getItem('page-fade')) {
+        document.documentElement.classList.add('page-enter-pending');
+      }
+    } catch (e) {}
+  </script>
 </head>
 <body class="ohp-body">
+
+  <div class="page-transition" id="pageTransition" aria-hidden="true"></div>
 
   <!-- hero background — same image as main site -->
   <div class="ohp-hero-bg" aria-hidden="true">
@@ -111,8 +120,6 @@
       <li><a href="/">Home</a></li>
     </ul>
   </footer>
-
-  <div class="page-transition" id="pageTransition" aria-hidden="true"></div>
 
   <script type="module">
     import { navigateWithFade, initPageEnterFade } from '/page-transition.js';

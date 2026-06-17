@@ -16,10 +16,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="assets/images/sqorio-favicon-2.png" />
   <link rel="stylesheet" href="styles.css" />
+  <script>
+    try {
+      if (sessionStorage.getItem('page-fade')) {
+        document.documentElement.classList.add('page-enter-pending');
+      }
+    } catch (e) {}
+  </script>
   <script async src="https://www.instagram.com/embed.js"></script>
   <script async src="https://www.tiktok.com/embed.js"></script>
 </head>
 <body>
+
+  <div class="page-transition" id="pageTransition" aria-hidden="true"></div>
 
   <!-- NAV -->
   <nav class="nav">
@@ -237,8 +246,6 @@
       <div class="modal-content" id="modalContent"></div>
     </div>
   </div>
-
-  <div class="page-transition" id="pageTransition" aria-hidden="true"></div>
 
   <script type="module" src="script.js"></script>
 </body>
