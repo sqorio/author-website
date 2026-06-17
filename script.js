@@ -737,6 +737,7 @@ if (hamburgerBtn) {
   });
 }
 
+
 // Close menu when any mobile nav link is tapped
 mobileMenu?.querySelectorAll('a[data-scroll]').forEach(link => {
   link.addEventListener('click', e => {

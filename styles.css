@@ -24,9 +24,9 @@ a {
    NAVIGATION
    ============================================= */
 .nav {
-  position: absolute;
+  position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 10;
+  z-index: 210; /* above mobile menu overlay (200) */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -873,7 +873,7 @@ a {
   position: fixed;
   inset: 0;
   background: rgba(26, 24, 20, 0.88);
-  z-index: 200;
+  z-index: 300; /* above nav (210) */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1518,6 +1518,8 @@ a {
   border: none;
   padding: 4px;
   cursor: pointer;
+  position: relative;
+  z-index: 210; /* stays above the mobile menu overlay */
 }
 .nav-hamburger span {
   display: block;
@@ -1525,13 +1527,23 @@ a {
   height: 2px;
   background: #FF6E00;
   border-radius: 1px;
-  transition: transform 0.25s, opacity 0.25s;
+  transition: transform 0.25s, opacity 0.25s, height 0.25s, width 0.25s;
   transform-origin: center;
 }
 /* Animate to ✕ when open */
-.nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+  background: #FF6E00;
+  height: 3px;
+  width: 26px;
+}
 .nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
-.nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-hamburger.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+  background: #FF6E00;
+  height: 3px;
+  width: 26px;
+}
 
 /* =============================================
    MOBILE MENU OVERLAY
@@ -1555,6 +1567,7 @@ a {
   opacity: 1;
   pointer-events: all;
 }
+
 
 .mobile-menu-links {
   list-style: none;
