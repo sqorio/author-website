@@ -249,8 +249,8 @@ const MODALS = {
       },
       {
         platform: 'Substack',
-        handle: '',
-        href: 'https://substack.com/home/post/p-200541837',
+        handle: '@sqorio',
+        href: 'https://sqorio.substack.com/p/sauteed-fillet-of-atlantic-loup-de',
         embedType: 'substack',
         title: 'Sautéed Fillet of Atlantic Loup de Mer with Bread',
         subtitle: 'On the impossibility of entrepreneurs',
@@ -279,8 +279,8 @@ const MODALS = {
   officehours: {
     type: 'officehours',
     intro: 'Every week on TikTok, I go live and take questions about writing — technique, process, books, craft. Submit something below. I\'ll answer it Thursday.',
-    liveLink: 'https://www.tiktok.com/@eskorjohnson',
-    calLink: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Office+Hours+%E2%80%94+Eskor+David+Johnson&dates=20260618T000000Z%2F20260618T010000Z&recur=RRULE%3AFREQ%3DWEEKLY%3BBYDAY%3DTH&details=Weekly+live+Q%26A+on+writing.+Watch+on+TikTok+at+https%3A%2F%2Fwww.tiktok.com%2F%40eskorjohnson',
+    liveLink: 'https://www.tiktok.com/@sqorio',
+    calLink: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Office+Hours+%E2%80%94+Eskor+David+Johnson&dates=20260618T000000Z%2F20260618T010000Z&recur=RRULE%3AFREQ%3DWEEKLY%3BBYDAY%3DTH&details=Weekly+live+Q%26A+on+writing.+Watch+on+TikTok+at+https%3A%2F%2Fwww.tiktok.com%2F%40sqorio',
     theme: 'TBD',
     formAction: 'https://formspree.io/f/xaqzkzdd',
     lastClipId: null,
@@ -636,7 +636,10 @@ function closeModal() {
 document.querySelectorAll('[data-modal]').forEach(tile => {
   tile.addEventListener('click', e => {
     // Don't hijack clicks on interactive elements inside a tile
-    if (e.target.closest('input, button, a')) return;
+    if (e.target.closest('input, button')) return;
+    // Allow href="#" tile CTAs to open the modal; block real external links
+    const anchor = e.target.closest('a');
+    if (anchor && anchor.getAttribute('href') !== '#') return;
     openModal(tile.dataset.modal);
   });
 });
@@ -688,8 +691,8 @@ if (postcardForm) {
   });
 }
 
-// ── Nav smooth-scroll ──────────────────────────────────────────
-document.querySelectorAll('.nav-links a[data-scroll]').forEach(link => {
+// ── Smooth-scroll for nav + footer links ───────────────────────
+document.querySelectorAll('a[data-scroll]').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
     const target = document.querySelector(link.dataset.scroll);

@@ -1920,7 +1920,8 @@ a {
   }
 
   /* Reset all JS-injected grid positions */
-  .tile {
+  .tile,
+  .tile-pair {
     grid-column: 1 / 2 !important;
     grid-row: auto !important;
   }
@@ -1928,21 +1929,21 @@ a {
   /* ── Mobile narrative order ──
      Doodles dispersed as visual breaths between content sections:
      after novel world, after interviews, after social              */
-  .t-portrait   { order: 1; }
-  .t-book       { order: 2; }
-  .t-quote1     { order: 3; }
-  .t-photo1     { order: 4; }  /* breath after novel world */
-  .t-essays     { order: 5; }
-  .t-stonybrook { order: 6; }
-  .t-quote2     { order: 7; }
-  .t-interviews { order: 8; }
-  .t-photo2     { order: 9; }  /* breath after credentials/speaking */
-  .t-bio        { order: 10; }
-  .t-social-pair { order: 11; }
+  .t-portrait    { order: 1; }
+  .t-book        { order: 2; }
+  .t-quote1      { order: 3; }
+  .t-photo1      { order: 4; }  /* breath after novel world */
+  .t-essays      { order: 5; }
+  .t-stonybrook  { order: 6; }
+  .t-quote2      { order: 7; }
+  .t-interviews  { order: 8; }
+  .t-social-pair { order: 9; }  /* online presence follows interviews */
+  .t-photo2      { order: 10; } /* breath */
+  .t-bio         { order: 11; }
   .t-app         { order: 12; }
-  .t-custom-1    { order: 13; } /* breath before close */
+  .t-custom-1    { order: 13; } /* bird before postcard */
   .t-mailing     { order: 14; }
-  .t-officehours { order: 15; } /* CTA — bottom anchor */
+  .t-officehours { order: 15; }
 
   /* Per-tile heights (span × 100px base) */
   .t-portrait   { grid-row: span 5 !important; } /* 500px */
@@ -1956,7 +1957,7 @@ a {
   .t-quote2     { grid-row: span 2 !important; } /* 200px */
   .t-interviews { grid-row: span 4 !important; } /* 400px */
   .t-mailing     { grid-row: span 3 !important; } /* 300px */
-  .t-social-pair { grid-row: span 5 !important; } /* 500px — social (250px) + OH (250px) */
+  .t-social-pair { grid-row: span 4 !important; } /* 400px — social (200px) + OH (200px) */
   .t-photo2     { grid-row: span 3 !important; } /* 300px */
   .t-custom-1   { grid-row: span 3 !important; } /* 300px */
 
