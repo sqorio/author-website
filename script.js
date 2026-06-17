@@ -275,6 +275,16 @@ const MODALS = {
       { label: 'Mark Twain American Voice in Literature', detail: 'Longlisted, 2023' },
     ],
   },
+
+  officehours: {
+    type: 'officehours',
+    intro: 'Every week on TikTok, I go live and take questions about writing — technique, process, books, craft. Submit something below. I\'ll answer it Thursday.',
+    liveLink: 'https://www.tiktok.com/@eskorjohnson',
+    calLink: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Office+Hours+%E2%80%94+Eskor+David+Johnson&dates=20260618T000000Z%2F20260618T010000Z&recur=RRULE%3AFREQ%3DWEEKLY%3BBYDAY%3DTH&details=Weekly+live+Q%26A+on+writing.+Watch+on+TikTok+at+https%3A%2F%2Fwww.tiktok.com%2F%40eskorjohnson',
+    theme: 'TBD',
+    formAction: 'https://formspree.io/f/xaqzkzdd',
+    lastClipId: null,
+  },
 };
 
 // ─── DOM refs ─────────────────────────────────────────────────────────────────
@@ -444,6 +454,63 @@ function buildHTML(data) {
             <div class="modal-eyebrow">${data.eyebrow}</div>
             <h2 class="modal-title">${data.title}</h2>
             <div class="modal-social-trio">${channelsHTML}</div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  if (type === 'officehours') {
+    panel.dataset.theme = 'light';
+    panel.dataset.size  = 'large';
+    const clipHTML = data.lastClipId
+      ? `<div class="oh-last-clip">
+          <div class="oh-clip-label">Last week</div>
+          <iframe class="oh-clip-iframe"
+            src="https://www.tiktok.com/embed/v2/${data.lastClipId}?autoplay=0"
+            allowfullscreen allow="encrypted-media"></iframe>
+        </div>`
+      : '';
+    return `
+      <div class="modal-book">
+        <div class="modal-writing-left oh-modal-left">
+          <div class="oh-left-inner">
+            <div class="modal-eyebrow oh-eyebrow">Weekly Live</div>
+            <h2 class="oh-heading">Office<br>Hours</h2>
+            <div class="oh-schedule">
+              <div class="oh-schedule-time">Thursdays · 8 PM ET</div>
+              <a class="oh-schedule-link" href="${data.liveLink}" target="_blank" rel="noopener">Watch on TikTok ↗</a>
+              <a class="oh-schedule-link" href="${data.calLink}" target="_blank" rel="noopener">Add to calendar ↗</a>
+            </div>
+          </div>
+          <p class="modal-writing-intro">${data.intro}</p>
+        </div>
+        <div class="modal-book-text">
+          <div class="modal-inner">
+            <div class="oh-theme">
+              <div class="oh-theme-label">Theme of the week</div>
+              <div class="oh-theme-text">${data.theme}</div>
+            </div>
+            <div class="oh-form-wrap">
+              <form class="oh-form" id="oh-form"
+                    action="${data.formAction}" method="POST">
+                <input type="hidden" name="_subject" value="Office Hours — question submission" />
+                <textarea class="oh-question" name="question"
+                          placeholder="Your question or topic…" rows="3" required></textarea>
+                <input class="oh-email-inp" type="email" name="email"
+                       placeholder="Your email address" required />
+                <div class="oh-form-footer">
+                  <span class="oh-promise">I'll answer it live on Thursday.</span>
+                  <button class="oh-submit" type="submit">Submit →</button>
+                </div>
+              </form>
+              <div class="oh-success" id="oh-success" aria-hidden="true">
+                <div class="oh-success-inner">
+                  <div class="oh-success-check">✓</div>
+                  <p class="oh-success-msg">Question submitted.<br>See you Thursday.</p>
+                </div>
+              </div>
+            </div>
+            ${clipHTML}
           </div>
         </div>
       </div>`;
@@ -629,4 +696,100 @@ document.querySelectorAll('.nav-links a[data-scroll]').forEach(link => {
     if (!target) return;
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
+});
+
+// ── Office Hours nav trigger (desktop) ─────────────────────────
+const ohNavLink = document.querySelector('.nav-oh');
+if (ohNavLink) {
+  ohNavLink.addEventListener('click', e => {
+    e.preventDefault();
+    openModal('officehours');
+  });
+}
+
+// ── Hamburger / mobile menu ──────────────────────────────────────
+const hamburgerBtn = document.getElementById('navHamburger');
+const mobileMenu   = document.getElementById('mobileMenu');
+const mobileOhLink = mobileMenu?.querySelector('.mobile-oh');
+
+function openMobileMenu() {
+  hamburgerBtn.classList.add('is-open');
+  hamburgerBtn.setAttribute('aria-expanded', 'true');
+  mobileMenu.classList.add('is-open');
+  mobileMenu.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+  hamburgerBtn.classList.remove('is-open');
+  hamburgerBtn.setAttribute('aria-expanded', 'false');
+  mobileMenu.classList.remove('is-open');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+if (hamburgerBtn) {
+  hamburgerBtn.addEventListener('click', () => {
+    hamburgerBtn.classList.contains('is-open') ? closeMobileMenu() : openMobileMenu();
+  });
+}
+
+// Close menu when any mobile nav link is tapped
+mobileMenu?.querySelectorAll('a[data-scroll]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    closeMobileMenu();
+    const target = document.querySelector(link.dataset.scroll);
+    if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+  });
+});
+
+// Office Hours in mobile menu opens the modal
+if (mobileOhLink) {
+  mobileOhLink.addEventListener('click', e => {
+    e.preventDefault();
+    closeMobileMenu();
+    setTimeout(() => openModal('officehours'), 300);
+  });
+}
+
+// Close mobile menu on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && mobileMenu?.classList.contains('is-open')) closeMobileMenu();
+});
+
+// ── Office Hours form (event-delegated — form lives inside modal) ─
+document.getElementById('modalContent').addEventListener('submit', async e => {
+  if (!e.target.matches('#oh-form')) return;
+  e.preventDefault();
+  const form = e.target;
+  const btn  = form.querySelector('.oh-submit');
+  btn.disabled    = true;
+  btn.textContent = 'Submitting…';
+
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' },
+    });
+    if (res.ok) {
+      form.style.opacity      = '0';
+      form.style.pointerEvents = 'none';
+      const successEl = document.getElementById('oh-success');
+      if (successEl) {
+        successEl.setAttribute('aria-hidden', 'false');
+        successEl.classList.add('is-visible');
+      }
+      form.reset();
+    } else {
+      btn.disabled    = false;
+      btn.textContent = 'Submit →';
+      alert('Something went wrong — please try again.');
+    }
+  } catch {
+    btn.disabled    = false;
+    btn.textContent = 'Submit →';
+    alert('Could not send — check your connection.');
+  }
 });

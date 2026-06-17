@@ -51,6 +51,7 @@ a {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  font-weight: 600;
   color: rgba(244, 240, 232, 0.75);
   transition: color 0.2s;
 }
@@ -767,12 +768,12 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 28px 24px 24px;
-  gap: 14px;
+  padding: 20px 24px 18px;
+  gap: 10px;
 }
 
 .social-logos-img {
-  width: 78%;
+  width: 72%;
   object-fit: contain;
   display: block;
   flex: 1;
@@ -780,11 +781,8 @@ a {
   filter: invert(1);
 }
 
-/* Disable brightness filter on hover for social tile — it breaks mix-blend-mode:screen.
-   Use opacity on the inner content for subtle hover feedback instead. */
-.t-social { filter: none !important; }
-.t-social:hover .social-inner { opacity: 0.8; }
-.t-social .social-inner { transition: opacity 0.25s; }
+/* Social tile link — keep link flush, no extra top margin */
+.t-social .tl { margin-top: 4px; }
 
 .social-links {
   display: flex;
@@ -1509,6 +1507,329 @@ a {
 }
 
 /* =============================================
+   HAMBURGER BUTTON (hidden on desktop)
+   ============================================= */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #FF6E00;
+  border-radius: 1px;
+  transition: transform 0.25s, opacity 0.25s;
+  transform-origin: center;
+}
+/* Animate to ✕ when open */
+.nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* =============================================
+   MOBILE MENU OVERLAY
+   ============================================= */
+.mobile-menu {
+  display: none; /* shown via JS on mobile only */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 24, 20, 0.97);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.mobile-menu.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-menu-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.mobile-menu-links a {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #F4F0E8;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.mobile-menu-links a:hover { opacity: 0.6; }
+
+.mobile-oh {
+  color: #FF6E00 !important;
+}
+
+/* =============================================
+   SOCIAL + OFFICE HOURS PAIR WRAPPER
+   ============================================= */
+.tile-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 3px; /* matches mosaic grid gap */
+  overflow: visible; /* allow scale hover to bleed beyond pair bounds */
+}
+
+/* Inner tiles fill equally */
+.tile-pair .tile {
+  flex: 1;
+  min-height: 0;
+}
+
+/* =============================================
+   NAV — OFFICE HOURS ACCENT
+   ============================================= */
+.nav-oh {
+  color: #FF6E00 !important;
+}
+
+/* =============================================
+   OFFICE HOURS TILE
+   ============================================= */
+.t-officehours {
+  background: #FF6E00;
+  cursor: pointer;
+}
+
+.oh-tile-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(28, 25, 20, 0.65);
+  margin-bottom: 12px;
+}
+
+.oh-tile-heading {
+  font-size: 52px;
+  line-height: 1.0;
+  color: #F4F0E8;
+  margin-bottom: 20px;
+}
+
+/* Override link color on the orange tile */
+.t-officehours .tl-l {
+  color: #1C1914;
+  border-bottom-color: rgba(28, 25, 20, 0.3);
+}
+
+/* =============================================
+   OFFICE HOURS MODAL
+   ============================================= */
+
+/* Left column reuses .modal-writing-left dark styles;
+   these classes add structure on top */
+.oh-modal-left {
+  justify-content: space-between;
+}
+
+.oh-left-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px 28px 16px;
+}
+
+.oh-eyebrow {
+  color: #C8601A !important;
+  margin-bottom: 14px;
+}
+
+.oh-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #F4F0E8;
+  margin-bottom: 28px;
+}
+
+.oh-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.oh-schedule-time {
+  font-size: 12px;
+  color: rgba(244, 240, 232, 0.55);
+  letter-spacing: 0.05em;
+}
+
+.oh-schedule-link {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #C8601A;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.oh-schedule-link:hover { opacity: 0.7; }
+
+/* Right column content */
+.oh-theme {
+  margin-bottom: 24px;
+  padding-bottom: 22px;
+  border-bottom: 0.5px solid rgba(26, 24, 20, 0.12);
+}
+
+.oh-theme-label {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(26, 24, 20, 0.4);
+  margin-bottom: 8px;
+}
+
+.oh-theme-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: #1A1814;
+  line-height: 1.5;
+}
+
+.oh-form-wrap {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.oh-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: opacity 0.3s;
+}
+
+.oh-question,
+.oh-email-inp {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: #1A1814;
+  outline: none;
+}
+.oh-question::placeholder,
+.oh-email-inp::placeholder { color: rgba(26, 24, 20, 0.35); }
+
+.oh-question {
+  width: 100%;
+  background: transparent;
+  border: 0.5px solid rgba(26, 24, 20, 0.18);
+  border-radius: 2px;
+  padding: 12px 14px;
+  resize: none;
+  line-height: 1.6;
+}
+.oh-question:focus { border-color: rgba(26, 24, 20, 0.4); }
+
+.oh-email-inp {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid rgba(26, 24, 20, 0.18);
+  padding: 8px 0 10px;
+}
+.oh-email-inp:focus { border-bottom-color: rgba(26, 24, 20, 0.4); }
+
+.oh-form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.oh-promise {
+  font-size: 11px;
+  color: rgba(26, 24, 20, 0.42);
+  font-style: italic;
+}
+
+.oh-submit {
+  background: #C8601A;
+  border: none;
+  color: #F4F0E8;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.oh-submit:hover   { background: #a34e15; }
+.oh-submit:disabled { opacity: 0.5; cursor: default; }
+
+/* Success state */
+.oh-success {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.oh-success.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.oh-success-inner { text-align: center; }
+.oh-success-check {
+  font-size: 26px;
+  color: #C8601A;
+  margin-bottom: 10px;
+}
+.oh-success-msg {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: #1A1814;
+  line-height: 1.6;
+}
+
+/* Last week's clip */
+.oh-last-clip { margin-top: 8px; }
+
+.oh-clip-label {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(26, 24, 20, 0.38);
+  margin-bottom: 14px;
+}
+
+.oh-clip-iframe {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 480px;
+  border: none;
+  display: block;
+}
+
+/* =============================================
    RESPONSIVE
    ============================================= */
 
@@ -1565,7 +1886,13 @@ a {
     font-size: 13px;
   }
   .nav-links {
-    display: none; /* clean wordmark-only on mobile */
+    display: none;
+  }
+  .nav-hamburger {
+    display: flex;
+  }
+  .mobile-menu {
+    display: flex;
   }
 
   /* ── Hero ── */
@@ -1611,10 +1938,11 @@ a {
   .t-interviews { order: 8; }
   .t-photo2     { order: 9; }  /* breath after credentials/speaking */
   .t-bio        { order: 10; }
-  .t-social     { order: 11; }
-  .t-app        { order: 12; }
-  .t-custom-1   { order: 13; } /* breath before close */
-  .t-mailing    { order: 14; }
+  .t-social-pair { order: 11; }
+  .t-app         { order: 12; }
+  .t-custom-1    { order: 13; } /* breath before close */
+  .t-mailing     { order: 14; }
+  .t-officehours { order: 15; } /* CTA — bottom anchor */
 
   /* Per-tile heights (span × 100px base) */
   .t-portrait   { grid-row: span 5 !important; } /* 500px */
@@ -1627,8 +1955,8 @@ a {
   .t-photo1     { grid-row: span 3 !important; } /* 300px */
   .t-quote2     { grid-row: span 2 !important; } /* 200px */
   .t-interviews { grid-row: span 4 !important; } /* 400px */
-  .t-mailing    { grid-row: span 3 !important; } /* 300px */
-  .t-social     { grid-row: span 3 !important; } /* 300px */
+  .t-mailing     { grid-row: span 3 !important; } /* 300px */
+  .t-social-pair { grid-row: span 5 !important; } /* 500px — social (250px) + OH (250px) */
   .t-photo2     { grid-row: span 3 !important; } /* 300px */
   .t-custom-1   { grid-row: span 3 !important; } /* 300px */
 
@@ -1755,6 +2083,9 @@ a {
     flex: none !important;
     width: 100% !important;
   }
+
+  /* Social tile — tighten padding slightly on mobile */
+  .social-inner { padding: 16px 24px 12px; }
 
   /* ── Footer ── */
   .footer {

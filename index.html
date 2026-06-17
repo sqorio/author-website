@@ -22,8 +22,23 @@
       <li><a href="#" data-scroll=".t-essays">Writing</a></li>
       <li><a href="#" data-scroll=".t-stonybrook">Teaching</a></li>
       <li><a href="#" data-scroll=".t-mailing">Contact</a></li>
+      <li><a href="#" class="nav-oh">Office Hours</a></li>
     </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul class="mobile-menu-links">
+      <li><a href="#" data-scroll=".t-book">Books</a></li>
+      <li><a href="#" data-scroll=".t-essays">Writing</a></li>
+      <li><a href="#" data-scroll=".t-stonybrook">Teaching</a></li>
+      <li><a href="#" data-scroll=".t-mailing">Contact</a></li>
+      <li><a href="#" class="mobile-oh">Office Hours</a></li>
+    </ul>
+  </div>
 
   <!-- HERO -->
   <div class="hero">
@@ -168,11 +183,20 @@
       </div>
     </div>
 
-    <!-- Social -->
-    <div class="tile t-social" data-modal="social" style="background:#000000;">
-      <div class="social-inner">
-        <img class="social-logos-img" src="assets/images/social-media-logos.png" alt="Instagram and TikTok" />
-        <a class="tl tl-l" href="#">I post online →</a>
+    <!-- Social + Office Hours pair (share original social footprint) -->
+    <div class="tile-pair t-social-pair">
+      <div class="tile t-social" data-modal="social" style="background:#000000;">
+        <div class="social-inner">
+          <img class="social-logos-img" src="assets/images/social-media-logos.png" alt="Instagram and TikTok" />
+          <a class="tl tl-l" href="#">I post online →</a>
+        </div>
+      </div>
+      <div class="tile t-officehours" data-modal="officehours">
+        <div class="ti center">
+          <div class="oh-tile-eyebrow">Live · Thursdays · 8 PM ET</div>
+          <div class="th th-l oh-tile-heading">Office<br>Hours</div>
+          <a class="tl tl-l" href="#">Submit a question →</a>
+        </div>
       </div>
     </div>
 
