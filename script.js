@@ -499,6 +499,8 @@ function buildHTML(data) {
                           placeholder="Your question or topic…" rows="3" required></textarea>
                 <input class="oh-email-inp" type="email" name="email"
                        placeholder="Your email address" required />
+                <textarea class="oh-links" name="links" rows="2"
+                          placeholder="Is there something I should read first? Drop the link here (optional)"></textarea>
                 <div class="oh-form-footer">
                   <span class="oh-promise">I'll answer it live on Thursday.</span>
                   <button class="oh-submit" type="submit">Submit →</button>
