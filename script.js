@@ -279,10 +279,10 @@ const MODALS = {
 
   officehours: {
     type: 'officehours',
-    intro: 'Every week on TikTok, I go live and take questions about writing: technique, books, gossip, or publishing. Submit something below. I\'ll answer it Thursday.',
+    intro: 'Every week on TikTok, I go live and take questions about writing: technique, books, gossip, or publishing. Submit something below. I\'ll answer it Tuesday.',
     liveLink: 'https://www.tiktok.com/@sqorio',
-    calLink: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Office+Hours+%E2%80%94+Eskor+David+Johnson&dates=20260618T000000Z%2F20260618T010000Z&recur=RRULE%3AFREQ%3DWEEKLY%3BBYDAY%3DTH&details=Weekly+live+Q%26A+on+writing.+Watch+on+TikTok+at+https%3A%2F%2Fwww.tiktok.com%2F%40sqorio',
-    theme: 'TBD',
+    calLink: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Office+Hours+%E2%80%94+Eskor+David+Johnson&dates=20260616T220000Z%2F20260616T230000Z&recur=RRULE%3AFREQ%3DWEEKLY%3BBYDAY%3DTU&details=Weekly+live+Q%26A+on+writing.+Watch+on+TikTok+at+https%3A%2F%2Fwww.tiktok.com%2F%40sqorio',
+    theme: 'Opening pages and why they work.',
     formAction: 'https://formspree.io/f/xaqzkzdd',
     lastClipId: null,
   },
@@ -478,7 +478,7 @@ function buildHTML(data) {
             <div class="modal-eyebrow oh-eyebrow">Weekly Live</div>
             <h2 class="oh-heading">Office<br>Hours</h2>
             <div class="oh-schedule">
-              <div class="oh-schedule-time">Thursdays · 8 PM ET</div>
+              <div class="oh-schedule-time">Tuesdays · 6 PM ET</div>
               <a class="oh-schedule-link" href="${data.liveLink}" target="_blank" rel="noopener">Watch on TikTok ↗</a>
               <a class="oh-schedule-link" href="${data.calLink}" target="_blank" rel="noopener">Add to calendar ↗</a>
             </div>
@@ -488,7 +488,7 @@ function buildHTML(data) {
         <div class="modal-book-text">
           <div class="modal-inner">
             <div class="oh-theme">
-              <div class="oh-theme-label">Theme of the week</div>
+              <div class="oh-theme-label">Theme of the month</div>
               <div class="oh-theme-text">${data.theme}</div>
             </div>
             <div class="oh-form-wrap">
@@ -502,14 +502,14 @@ function buildHTML(data) {
                 <textarea class="oh-links" name="links" rows="2"
                           placeholder="Is there something I should read first? Drop the link here (optional)"></textarea>
                 <div class="oh-form-footer">
-                  <span class="oh-promise">I'll answer it live on Thursday.</span>
+                  <span class="oh-promise">I'll answer it live on Tuesday.</span>
                   <button class="oh-submit" type="submit">Submit →</button>
                 </div>
               </form>
               <div class="oh-success" id="oh-success" aria-hidden="true">
                 <div class="oh-success-inner">
                   <div class="oh-success-check">✓</div>
-                  <p class="oh-success-msg">Question submitted.<br>See you Thursday.</p>
+                  <p class="oh-success-msg">Question submitted.<br>See you Tuesday.</p>
                 </div>
               </div>
             </div>
