@@ -614,6 +614,13 @@ function buildHTML(data) {
   return html;
 }
 
+// ─── Analytics ────────────────────────────────────────────────────────────────
+// Fires a Vercel Web Analytics custom event (no-op if analytics isn't loaded,
+// e.g. in local dev or if blocked).
+function trackEvent(name, data) {
+  if (typeof window.va === 'function') window.va('event', { name, data });
+}
+
 // ─── Open / close ─────────────────────────────────────────────────────────────
 
 function openModal(key) {
@@ -623,6 +630,7 @@ function openModal(key) {
   overlay.setAttribute('aria-hidden', 'false');
   overlay.classList.add('is-open');
   document.body.style.overflow = 'hidden';
+  trackEvent('Tile Click', { tile: key });
   // Re-process any Instagram / TikTok embeds injected into the modal
   if (window.instgrm?.Embeds) window.instgrm.Embeds.process();
   if (window.tiktok?.Embeds) window.tiktok.Embeds.render();
@@ -754,8 +762,9 @@ function bindOhNavigation() {
   const ohNav    = document.querySelector('.nav-oh');
   const ohMobile = mobileMenu?.querySelector('.mobile-oh');
 
-  const go = (e, afterClose) => {
+  const go = (e, afterClose, source) => {
     e.preventDefault();
+    trackEvent('Office Hours Click', { source });
     if (afterClose) {
       closeMobileMenu();
       setTimeout(() => navigateWithFade(OH_URL), 200);
@@ -764,11 +773,11 @@ function bindOhNavigation() {
     }
   };
 
-  ohNav?.addEventListener('click', e => go(e, false));
-  ohMobile?.addEventListener('click', e => go(e, true));
+  ohNav?.addEventListener('click', e => go(e, false, 'nav'));
+  ohMobile?.addEventListener('click', e => go(e, true, 'mobile-menu'));
   ohTile?.addEventListener('click', e => {
     if (e.target.closest('input, button')) return;
-    go(e, false);
+    go(e, false, 'tile');
   });
 }
 
